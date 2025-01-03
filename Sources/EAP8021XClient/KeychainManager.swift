@@ -16,6 +16,7 @@ public enum KeychainManager {
     ///   - cerPath: 证书路径
     ///   - teamId: 开发者团队 ID
     /// - Returns: 证书
+    @discardableResult
     public static func addCertificate(cerContent: String?, cerPath: String?, teamId: String?) throws -> (cer: SecCertificate, label: String) {
         guard let base64 = certificateBase64(cerContent: cerContent, cerPath: cerPath) else {
             throw EAPConfiguratorError.failedToParsePemFile
@@ -166,14 +167,7 @@ public extension KeychainManager {
                                  _ trustSettingsResult: SecTrustSettingsResult = .trustAsRoot) throws
     {
         let trustSettings = [
-            [
-                kSecTrustSettingsResult: NSNumber(value: trustSettingsResult.rawValue),
-                kSecTrustSettingsPolicy: SecPolicyCreateBasicX509(),
-            ],
-            [
-                kSecTrustSettingsResult: NSNumber(value: trustSettingsResult.rawValue),
-                kSecTrustSettingsPolicy: SecPolicyCreateWithProperties(kSecPolicyAppleEAP, nil)!,
-            ],
+            kSecTrustSettingsResult: NSNumber(value: trustSettingsResult.rawValue),
         ] as CFTypeRef
 
         let trustStatus = SecTrustSettingsSetTrustSettings(certificate, domain, trustSettings)

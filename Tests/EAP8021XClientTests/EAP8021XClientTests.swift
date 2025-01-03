@@ -1,5 +1,4 @@
 @testable import EAP8021XClient
-@testable import EAP8021XClientObjc
 import XCTest
 
 final class EAP8021XClientTests: XCTestCase {
@@ -12,20 +11,21 @@ final class EAP8021XClientTests: XCTestCase {
     }
 
     func testFetchProfiles() throws {
-        let profiles = Eap8021x.listProfiles()
+        let profiles = EAP8021XClient.listAllProfiles()
+        debugPrint("-----")
+    }
+    
+    func testFetchProfile() throws {
+        let profiles = EAP8021XClient.profileWithSSID("ZenNet-Radius-Test")
         debugPrint("-----")
     }
 
     func testDeleteProfile() throws {
-        let result = Eap8021x.removeProfile(withId: "ZenNet-Radius-Test")
+        let result = EAP8021XClient.removeProfileWithSSID("ZenNet-Radius-Test")
         debugPrint(result)
     }
 
-    func textImportProfile() throws {
-        let profiles = Eap8021x.listProfiles()
-        let turboProfile = profiles?.first { $0.ssid == "ZenNet-Radius-Test" }
-        let turboProfile1 = Eap8021x.profile(withSSID: "ZenNet-Radius-Test")
-
+    func testImportProfile() throws {
         let cerContent = """
         MIIEHjCCAwagAwIBAgIUexFK3dzhVtSqrNohoIjMq9iOkfYwDQYJKoZIhvcNAQEL
         BQAwejELMAkGA1UEBhMCQ04xEDAOBgNVBAgMB0ppYW5nc3UxEDAOBgNVBAcMB05h
@@ -53,15 +53,8 @@ final class EAP8021XClientTests: XCTestCase {
         """.replacingOccurrences(of: "\n", with: "")
 
         if let cerData = Data(base64Encoded: cerContent) {
-            let result = Eap8021x.createProfile(withSSID: "ZenNet-Radius-Test",
-                                                acceptEAPTypes: [NSNumber(value: Eap8021xEAPType.PEAP.rawValue)],
-                                                userDefinedName: "TurboXWIFI",
-                                                domainName: nil,
-                                                securityType: Eap8021xSecurityType.any,
-                                                outerIdentity: nil,
-                                                ttlSInnerAuthentication: Eap8021TTLSInnerAuthType.mschaPv2,
-                                                trustedServerName: nil,
-                                                trustedCertificate: [cerData])
+            let result = EAP8021XClient.createProfile(ssid: "ZenNet-Radius-Test", acceptEAPTypes: [.PEAP], userDefinedName: "TurboXWIFI", domainName: nil, securityType: .any, outerIdentity: nil, ttlSInnerAuthentication: .mschaPv2, trustedServerName: nil, trustedCertificate: [cerData])
+
             debugPrint(result)
         }
     }
