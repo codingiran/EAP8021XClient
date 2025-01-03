@@ -15,10 +15,10 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
                        
-  s.homepage         = 'https://github.com/CodingIran/EAP8021XClient'
+  s.homepage         = 'https://github.com/codingiran/EAP8021XClient'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'CodingIran' => 'codingiran@gmail.com' }
-  s.source           = { :git => 'https://github.com/CodingIran/EAP8021XClient.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/codingiran/EAP8021XClient.git', :tag => s.version.to_s }
   s.cocoapods_version = '>= 1.13.0'
 
   s.ios.deployment_target = '13.0'
