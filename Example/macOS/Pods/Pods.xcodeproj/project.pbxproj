@@ -1,0 +1,1068 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		046F219DC2A01216A1FCA96ADA66DAB0 /* Pods-EAP8021XClient_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D625C8E827DB30E3AA6F07825660BD /* Pods-EAP8021XClient_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1A2CA072B82FF930254FCF11FD82F3F3 /* Eap8021x.h in Headers */ = {isa = PBXBuildFile; fileRef = E301F7158105CACC3BC63279E27DEF9C /* Eap8021x.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1FD30AD1D6D92EFA2EAE99B18DCC34FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60F192998229759D276A0571D71322BA /* Cocoa.framework */; };
+		2240C57484E535DAEC657BC1E19F3A8A /* Pods-EAP8021XClient_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 939A5EC2312E864772C4C056F4D6CD7B /* Pods-EAP8021XClient_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22E083CAE93585F8C65DB3425DFB8E5C /* SCValidation.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F7AD970472EC4EFA040D1405B9A0D1 /* SCValidation.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		31F1D6183951E763F17B2562D825DB56 /* CFRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA8A5757FBE0A6EF2E6F6D7C1E91885 /* CFRuntime.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		3E99887B91E679AABEE0BA88677C88E6 /* SecTrustedApplicationPriv.h in Headers */ = {isa = PBXBuildFile; fileRef = 141137FE29F5F624064EA5EA6A547D76 /* SecTrustedApplicationPriv.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3FE499A5EDCF79DC58683B7525B7BF5C /* EAP.h in Headers */ = {isa = PBXBuildFile; fileRef = 50BD2087A1AC64A7A09050190CE32B1A /* EAP.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		43420269697FA55D9CF5A7281A082CE4 /* myCFUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E94BB22F8B78DE71D2409FF371BBAAF /* myCFUtil.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		4359DD34E3C1429D08FAD864BD1E8BB3 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D600B6997C16ECC8DA3DFFD6187EC2 /* KeychainManager.swift */; };
+		47EAE4D6B41186E7A87CE091565EE4EE /* EAP8021XClient-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CD1BDCFC05CD1C68250F6F41D7F39F67 /* EAP8021XClient-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49B40DD0D67A88A9253B6911E5DEB78C /* EAPOLClientConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = A803C589DFDC1DCD75D6613F70351E07 /* EAPOLClientConfiguration.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		5061CB16F18019018383C31035F2D18C /* EAPOLControlTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 269F7E8D028EF443C6D23C5E38A9E11C /* EAPOLControlTypes.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		6511785D2013D133B5FC1327D3B03BD2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 46B14700FF7CF94B2814B1458865E4A2 /* PrivacyInfo.xcprivacy */; };
+		655142A07B04376A304065588AEB466A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B254D978CB6CCBF78A9CC21181C6489E /* Foundation.framework */; };
+		742ACD947BB9F938072AB0061FB8B39F /* Pods-EAP8021XClient_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E412AB46A687C0F68E32CCC47D4966D6 /* Pods-EAP8021XClient_Example-dummy.m */; };
+		7B9771EE8578B2671716DB4FC8F35525 /* Pods-EAP8021XClient_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AD48794E8431A3490D43D1618A9C310A /* Pods-EAP8021XClient_Tests-dummy.m */; };
+		7F49A1D8890271DAF96AA42F76A1030E /* EAPUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F62C5AE4E53BA7E75594F3128996D2 /* EAPUtil.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		83067DD1928802D178BD9F07BF501CCA /* EAP8021X.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84163F6F8CB554BA9629FBB54F931296 /* EAP8021X.framework */; };
+		8EA0F2FE4E0E9C2FC0425B3A67BBD80E /* EAP8021XClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F0161D89E5BF4E3A6EDB980E813A32A9 /* EAP8021XClient-dummy.m */; };
+		8FD09A67CE2F3C9ACD2A9BD29E259809 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60F192998229759D276A0571D71322BA /* Cocoa.framework */; };
+		90B2C59D410020B4A7548538EF89F587 /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F8D68548451A72FE072A54396B83F28 /* CoreWLAN.framework */; };
+		9E8FBCEC594315EEB7AA1B82644FC7E0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A08737E0E087D612B3ED3B418C34DF /* SystemConfiguration.framework */; };
+		A4AD22AEF1F77607340C354308B533D4 /* EAPClientProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 54A5EFDB7891928E6D0461C37BF33D42 /* EAPClientProperties.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A6616D8432D362F1E7AB91544663B56D /* SCPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = B44613B7421584D2C468E11287FD2D2A /* SCPrivate.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		AD0872593825B08C495003076A18E5AE /* Eap8021x.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDC0F1B74853A7C3F7343A7CCB8219E /* Eap8021x.m */; };
+		B65C85BF29FE842D12913E1327CA871C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E742B83DFEBDD6BB60A05061AD4891A3 /* Security.framework */; };
+		B6DFF7EB795ADB50F48D32CD928E55F3 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E90EA8F3C0E606BD2255CE029DB651B /* Network.framework */; };
+		B9FD0C5A6A169DB7EF8E9D8409C0AD1E /* EAP8021XClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB77F23CA39C8567BE414BFF8D3B7177 /* EAP8021XClient.swift */; };
+		BBB07038E4E0942EA5582E0B89BF338D /* EAPCertificateUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EB5CB25D7A16E61717A5BC658989467 /* EAPCertificateUtil.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C3F643910C5F6B676767BE3AC08C61A9 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72BC5519AB796BF35D9076D1D90ADFA4 /* AppKit.framework */; };
+		CA1FB2477821CEDFF0568BD7D11920C7 /* symbol_scope.h in Headers */ = {isa = PBXBuildFile; fileRef = EC57DC5A09237A6500357F2635D3F2BA /* symbol_scope.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D3650A709BC65B6E79F618F935F6C281 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60F192998229759D276A0571D71322BA /* Cocoa.framework */; };
+		D539AB2CC8139310C602879BD64BFDD2 /* EAPOLControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B4B8FF86E0A76954B48977463C270EA /* EAPOLControl.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D6CB0BBF3CC6782DB1663572703E3D43 /* EAPOLClientConfigurationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 856FBBA736305DB7A4F7268490E242DB /* EAPOLClientConfigurationPrivate.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		DA7C05E6AC3B7778CB407D788321BCBB /* EAP8021XClient-EAP8021XClient in Resources */ = {isa = PBXBuildFile; fileRef = DE6FE92C62C0EADFB041B6CA5F68E9E3 /* EAP8021XClient-EAP8021XClient */; };
+		EB8BC15911EA398B860309AF37016517 /* EAPSecurity.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC0F7FF10F431ADBE294620DB4CC7B1 /* EAPSecurity.h */; settings = {ATTRIBUTES = (Project, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		142C8B3174FCBA8AF3FC6089EB8255FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 190CDBFD9070752A41E23FAD57000074;
+			remoteInfo = "EAP8021XClient-EAP8021XClient";
+		};
+		1BB2A9BECE8D4E0537B588D53635B09D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 204C540F0E75F9F121236367E1018009;
+			remoteInfo = "Pods-EAP8021XClient_Example";
+		};
+		3BE2C9EEF17A6039DEF54713E29829BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9BB9BE7ECEC0131CFDCA7B4BF9C67A69;
+			remoteInfo = EAP8021XClient;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		088442BB1C94222699096650FCE3E97B /* Pods-EAP8021XClient_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EAP8021XClient_Example-Info.plist"; sourceTree = "<group>"; };
+		13E649E6764DAF1C71D651C62505FE66 /* Pods-EAP8021XClient_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EAP8021XClient_Tests.modulemap"; sourceTree = "<group>"; };
+		141137FE29F5F624064EA5EA6A547D76 /* SecTrustedApplicationPriv.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SecTrustedApplicationPriv.h; sourceTree = "<group>"; };
+		1675A9E692E1764871B9B8FEA6920257 /* EAP8021XClient.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = EAP8021XClient.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		1CE40E5E8834B4A85CBBACAF7B9FBD09 /* Pods-EAP8021XClient_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EAP8021XClient_Tests-Info.plist"; sourceTree = "<group>"; };
+		1F3C77D013F3F5BE46FC47C8A5FF3AF8 /* Pods-EAP8021XClient_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-EAP8021XClient_Example"; path = Pods_EAP8021XClient_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22F7AD970472EC4EFA040D1405B9A0D1 /* SCValidation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SCValidation.h; sourceTree = "<group>"; };
+		25AAEDB51E4DCDC51DA1ADC2EBCDFBE2 /* Pods-EAP8021XClient_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EAP8021XClient_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		269F7E8D028EF443C6D23C5E38A9E11C /* EAPOLControlTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = EAPOLControlTypes.h; sourceTree = "<group>"; };
+		2DFDAAA44B7887DFDD142A0063BEC3E1 /* Pods-EAP8021XClient_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EAP8021XClient_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		33AD1BD2518CB2589B27E591F0EB91C6 /* EAP8021XClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EAP8021XClient.debug.xcconfig; sourceTree = "<group>"; };
+		370031061C77E8E7CA143BA238954890 /* Pods-EAP8021XClient_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EAP8021XClient_Example-frameworks.sh"; sourceTree = "<group>"; };
+		3B4B8FF86E0A76954B48977463C270EA /* EAPOLControl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = EAPOLControl.h; sourceTree = "<group>"; };
+		46245FBEB15997AD95A60C379F1BBA39 /* EAP8021XClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EAP8021XClient.release.xcconfig; sourceTree = "<group>"; };
+		46B14700FF7CF94B2814B1458865E4A2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Sources/Resources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		4AA863FEB0FDC3A7263DF6C6FF414991 /* ResourceBundle-EAP8021XClient-EAP8021XClient-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-EAP8021XClient-EAP8021XClient-Info.plist"; sourceTree = "<group>"; };
+		50BD2087A1AC64A7A09050190CE32B1A /* EAP.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = EAP.h; sourceTree = "<group>"; };
+		54A5EFDB7891928E6D0461C37BF33D42 /* EAPClientProperties.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = EAPClientProperties.h; sourceTree = "<group>"; };
+		56D600B6997C16ECC8DA3DFFD6187EC2 /* KeychainManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		59892D546AA9425F39C6642236CA6DE8 /* Pods-EAP8021XClient_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EAP8021XClient_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		5A94344F04359A9A9DA79A4B8382CC95 /* EAP8021XClient */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EAP8021XClient; path = EAP8021XClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AC0F7FF10F431ADBE294620DB4CC7B1 /* EAPSecurity.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = EAPSecurity.h; sourceTree = "<group>"; };
+		5EB5CB25D7A16E61717A5BC658989467 /* EAPCertificateUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = EAPCertificateUtil.h; sourceTree = "<group>"; };
+		60F192998229759D276A0571D71322BA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		666B45BE376FCFF7CAC42085CA88A5F7 /* EAP8021XClient.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = EAP8021XClient.modulemap; sourceTree = "<group>"; };
+		69F5C7D913023E3A39A763FE4CF1F50E /* Pods-EAP8021XClient_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EAP8021XClient_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		69F62C5AE4E53BA7E75594F3128996D2 /* EAPUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = EAPUtil.h; sourceTree = "<group>"; };
+		6F72DF346989A369359E0E9021D1BB13 /* Pods-EAP8021XClient_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EAP8021XClient_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		6F8D68548451A72FE072A54396B83F28 /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/CoreWLAN.framework; sourceTree = DEVELOPER_DIR; };
+		72BC5519AB796BF35D9076D1D90ADFA4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
+		74A08737E0E087D612B3ED3B418C34DF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		7AF62FF065DECEB01E4D169085C79B4E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		7B2AB75DA562F0D0907535EBAE629D7D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		7F51A45661D7AD921551C73431BE818B /* Pods-EAP8021XClient_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EAP8021XClient_Example.modulemap"; sourceTree = "<group>"; };
+		84163F6F8CB554BA9629FBB54F931296 /* EAP8021X.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EAP8021X.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/EAP8021X.framework; sourceTree = DEVELOPER_DIR; };
+		856FBBA736305DB7A4F7268490E242DB /* EAPOLClientConfigurationPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = EAPOLClientConfigurationPrivate.h; sourceTree = "<group>"; };
+		8E94BB22F8B78DE71D2409FF371BBAAF /* myCFUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = myCFUtil.h; sourceTree = "<group>"; };
+		939A5EC2312E864772C4C056F4D6CD7B /* Pods-EAP8021XClient_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EAP8021XClient_Tests-umbrella.h"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9E90EA8F3C0E606BD2255CE029DB651B /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Network.framework; sourceTree = DEVELOPER_DIR; };
+		A803C589DFDC1DCD75D6613F70351E07 /* EAPOLClientConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = EAPOLClientConfiguration.h; sourceTree = "<group>"; };
+		AD48794E8431A3490D43D1618A9C310A /* Pods-EAP8021XClient_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EAP8021XClient_Tests-dummy.m"; sourceTree = "<group>"; };
+		B254D978CB6CCBF78A9CC21181C6489E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		B44613B7421584D2C468E11287FD2D2A /* SCPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SCPrivate.h; sourceTree = "<group>"; };
+		CD1BDCFC05CD1C68250F6F41D7F39F67 /* EAP8021XClient-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EAP8021XClient-umbrella.h"; sourceTree = "<group>"; };
+		D8D625C8E827DB30E3AA6F07825660BD /* Pods-EAP8021XClient_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EAP8021XClient_Example-umbrella.h"; sourceTree = "<group>"; };
+		DA9704A5BE79F671CCCCA1CE22ABF5D6 /* EAP8021XClient-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "EAP8021XClient-Info.plist"; sourceTree = "<group>"; };
+		DCDC0F1B74853A7C3F7343A7CCB8219E /* Eap8021x.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Eap8021x.m; sourceTree = "<group>"; };
+		DE6FE92C62C0EADFB041B6CA5F68E9E3 /* EAP8021XClient-EAP8021XClient */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "EAP8021XClient-EAP8021XClient"; path = EAP8021XClient.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		E05387C27618505419D6D8A46552155C /* EAP8021XClient-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EAP8021XClient-prefix.pch"; sourceTree = "<group>"; };
+		E301F7158105CACC3BC63279E27DEF9C /* Eap8021x.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Eap8021x.h; sourceTree = "<group>"; };
+		E412AB46A687C0F68E32CCC47D4966D6 /* Pods-EAP8021XClient_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EAP8021XClient_Example-dummy.m"; sourceTree = "<group>"; };
+		E44C228DED7574CAA7CD00C1FC870F45 /* Pods-EAP8021XClient_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EAP8021XClient_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		E4AADD21460E6B48C95EA811BFE6C43E /* Pods-EAP8021XClient_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EAP8021XClient_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		E742B83DFEBDD6BB60A05061AD4891A3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		EB89784BC9DB88ED91F5542F679F387F /* Pods-EAP8021XClient_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EAP8021XClient_Example.release.xcconfig"; sourceTree = "<group>"; };
+		EC57DC5A09237A6500357F2635D3F2BA /* symbol_scope.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = symbol_scope.h; sourceTree = "<group>"; };
+		F0161D89E5BF4E3A6EDB980E813A32A9 /* EAP8021XClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "EAP8021XClient-dummy.m"; sourceTree = "<group>"; };
+		FB36651D6125FA8F75D7E3DF6F46DDA3 /* Pods-EAP8021XClient_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-EAP8021XClient_Tests"; path = Pods_EAP8021XClient_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB77F23CA39C8567BE414BFF8D3B7177 /* EAP8021XClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EAP8021XClient.swift; sourceTree = "<group>"; };
+		FBA8A5757FBE0A6EF2E6F6D7C1E91885 /* CFRuntime.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CFRuntime.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00C4485FB92ECA86970C19ED59871056 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DA0A34FEA763599B858DAE717877AC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FD30AD1D6D92EFA2EAE99B18DCC34FB /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFA20CE612384A1B64C163A0379866AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FD09A67CE2F3C9ACD2A9BD29E259809 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1262AA8739BB5664F65760B549B23BF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3F643910C5F6B676767BE3AC08C61A9 /* AppKit.framework in Frameworks */,
+				D3650A709BC65B6E79F618F935F6C281 /* Cocoa.framework in Frameworks */,
+				90B2C59D410020B4A7548538EF89F587 /* CoreWLAN.framework in Frameworks */,
+				83067DD1928802D178BD9F07BF501CCA /* EAP8021X.framework in Frameworks */,
+				655142A07B04376A304065588AEB466A /* Foundation.framework in Frameworks */,
+				B6DFF7EB795ADB50F48D32CD928E55F3 /* Network.framework in Frameworks */,
+				B65C85BF29FE842D12913E1327CA871C /* Security.framework in Frameworks */,
+				9E8FBCEC594315EEB7AA1B82644FC7E0 /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		026D79D89997C33186D223973DB64731 /* EAP8021XClient */ = {
+			isa = PBXGroup;
+			children = (
+				FB77F23CA39C8567BE414BFF8D3B7177 /* EAP8021XClient.swift */,
+				56D600B6997C16ECC8DA3DFFD6187EC2 /* KeychainManager.swift */,
+			);
+			name = EAP8021XClient;
+			path = Sources/EAP8021XClient;
+			sourceTree = "<group>";
+		};
+		29B98402D5F9D3B9E9D67ABB49DC810A /* SystemConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				B44613B7421584D2C468E11287FD2D2A /* SCPrivate.h */,
+				22F7AD970472EC4EFA040D1405B9A0D1 /* SCValidation.h */,
+			);
+			name = SystemConfiguration;
+			path = SystemConfiguration;
+			sourceTree = "<group>";
+		};
+		2B52F49C730EBFF2BA7C8AECCA2A8330 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FAF295156BF3C1A3D95899989FBCB754 /* Pods-EAP8021XClient_Example */,
+				9D880E0EDBF2BEA102AF9E8B14B9A770 /* Pods-EAP8021XClient_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		63438A1A2970E7D2466E1FC95C7CD055 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				70ABC3BB97A22029C26B7F1BFF41CDEC /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6A19905138BBCC944901675E5E941CB7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5A94344F04359A9A9DA79A4B8382CC95 /* EAP8021XClient */,
+				DE6FE92C62C0EADFB041B6CA5F68E9E3 /* EAP8021XClient-EAP8021XClient */,
+				1F3C77D013F3F5BE46FC47C8A5FF3AF8 /* Pods-EAP8021XClient_Example */,
+				FB36651D6125FA8F75D7E3DF6F46DDA3 /* Pods-EAP8021XClient_Tests */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		70ABC3BB97A22029C26B7F1BFF41CDEC /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				72BC5519AB796BF35D9076D1D90ADFA4 /* AppKit.framework */,
+				60F192998229759D276A0571D71322BA /* Cocoa.framework */,
+				6F8D68548451A72FE072A54396B83F28 /* CoreWLAN.framework */,
+				84163F6F8CB554BA9629FBB54F931296 /* EAP8021X.framework */,
+				B254D978CB6CCBF78A9CC21181C6489E /* Foundation.framework */,
+				9E90EA8F3C0E606BD2255CE029DB651B /* Network.framework */,
+				E742B83DFEBDD6BB60A05061AD4891A3 /* Security.framework */,
+				74A08737E0E087D612B3ED3B418C34DF /* SystemConfiguration.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		7FEBBB8BBA6E6C91E8EAB9287217F928 /* EAP8021X */ = {
+			isa = PBXGroup;
+			children = (
+				50BD2087A1AC64A7A09050190CE32B1A /* EAP.h */,
+				5EB5CB25D7A16E61717A5BC658989467 /* EAPCertificateUtil.h */,
+				54A5EFDB7891928E6D0461C37BF33D42 /* EAPClientProperties.h */,
+				A803C589DFDC1DCD75D6613F70351E07 /* EAPOLClientConfiguration.h */,
+				856FBBA736305DB7A4F7268490E242DB /* EAPOLClientConfigurationPrivate.h */,
+				3B4B8FF86E0A76954B48977463C270EA /* EAPOLControl.h */,
+				269F7E8D028EF443C6D23C5E38A9E11C /* EAPOLControlTypes.h */,
+				5AC0F7FF10F431ADBE294620DB4CC7B1 /* EAPSecurity.h */,
+				69F62C5AE4E53BA7E75594F3128996D2 /* EAPUtil.h */,
+				8E94BB22F8B78DE71D2409FF371BBAAF /* myCFUtil.h */,
+			);
+			name = EAP8021X;
+			path = EAP8021X;
+			sourceTree = "<group>";
+		};
+		9D880E0EDBF2BEA102AF9E8B14B9A770 /* Pods-EAP8021XClient_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				13E649E6764DAF1C71D651C62505FE66 /* Pods-EAP8021XClient_Tests.modulemap */,
+				E44C228DED7574CAA7CD00C1FC870F45 /* Pods-EAP8021XClient_Tests-acknowledgements.markdown */,
+				59892D546AA9425F39C6642236CA6DE8 /* Pods-EAP8021XClient_Tests-acknowledgements.plist */,
+				AD48794E8431A3490D43D1618A9C310A /* Pods-EAP8021XClient_Tests-dummy.m */,
+				1CE40E5E8834B4A85CBBACAF7B9FBD09 /* Pods-EAP8021XClient_Tests-Info.plist */,
+				939A5EC2312E864772C4C056F4D6CD7B /* Pods-EAP8021XClient_Tests-umbrella.h */,
+				6F72DF346989A369359E0E9021D1BB13 /* Pods-EAP8021XClient_Tests.debug.xcconfig */,
+				E4AADD21460E6B48C95EA811BFE6C43E /* Pods-EAP8021XClient_Tests.release.xcconfig */,
+			);
+			name = "Pods-EAP8021XClient_Tests";
+			path = "Target Support Files/Pods-EAP8021XClient_Tests";
+			sourceTree = "<group>";
+		};
+		BC65649E2205CFC2AF7566F1B515E4ED /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				1675A9E692E1764871B9B8FEA6920257 /* EAP8021XClient.podspec */,
+				7AF62FF065DECEB01E4D169085C79B4E /* LICENSE */,
+				7B2AB75DA562F0D0907535EBAE629D7D /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		C3493C18356B61B8B385F2C19511EADB /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DB5652A51FBEF17D359DA55F982C3841 /* EAP8021XClient */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		CA7EA24B32BFFE236E87B5BB32D6E53E /* CoreFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				FBA8A5757FBE0A6EF2E6F6D7C1E91885 /* CFRuntime.h */,
+			);
+			name = CoreFoundation;
+			path = CoreFoundation;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				C3493C18356B61B8B385F2C19511EADB /* Development Pods */,
+				63438A1A2970E7D2466E1FC95C7CD055 /* Frameworks */,
+				6A19905138BBCC944901675E5E941CB7 /* Products */,
+				2B52F49C730EBFF2BA7C8AECCA2A8330 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D34563B12CE4BC4D90415DF4077FA805 /* EAP8021XClientObjc */ = {
+			isa = PBXGroup;
+			children = (
+				DCDC0F1B74853A7C3F7343A7CCB8219E /* Eap8021x.m */,
+				D65C27386F807A96D65C6A09705FBE1A /* headers */,
+				FB42B3AA3D054BBE614D7860B2C60E39 /* include */,
+			);
+			name = EAP8021XClientObjc;
+			path = Sources/EAP8021XClientObjc;
+			sourceTree = "<group>";
+		};
+		D65C27386F807A96D65C6A09705FBE1A /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				EC57DC5A09237A6500357F2635D3F2BA /* symbol_scope.h */,
+				CA7EA24B32BFFE236E87B5BB32D6E53E /* CoreFoundation */,
+				7FEBBB8BBA6E6C91E8EAB9287217F928 /* EAP8021X */,
+				29B98402D5F9D3B9E9D67ABB49DC810A /* SystemConfiguration */,
+			);
+			name = headers;
+			path = headers;
+			sourceTree = "<group>";
+		};
+		DB5652A51FBEF17D359DA55F982C3841 /* EAP8021XClient */ = {
+			isa = PBXGroup;
+			children = (
+				46B14700FF7CF94B2814B1458865E4A2 /* PrivacyInfo.xcprivacy */,
+				026D79D89997C33186D223973DB64731 /* EAP8021XClient */,
+				D34563B12CE4BC4D90415DF4077FA805 /* EAP8021XClientObjc */,
+				BC65649E2205CFC2AF7566F1B515E4ED /* Pod */,
+				E95A948C4D42D1261724424002DEA9D6 /* Support Files */,
+			);
+			name = EAP8021XClient;
+			path = ../../..;
+			sourceTree = "<group>";
+		};
+		E95A948C4D42D1261724424002DEA9D6 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				666B45BE376FCFF7CAC42085CA88A5F7 /* EAP8021XClient.modulemap */,
+				F0161D89E5BF4E3A6EDB980E813A32A9 /* EAP8021XClient-dummy.m */,
+				DA9704A5BE79F671CCCCA1CE22ABF5D6 /* EAP8021XClient-Info.plist */,
+				E05387C27618505419D6D8A46552155C /* EAP8021XClient-prefix.pch */,
+				CD1BDCFC05CD1C68250F6F41D7F39F67 /* EAP8021XClient-umbrella.h */,
+				33AD1BD2518CB2589B27E591F0EB91C6 /* EAP8021XClient.debug.xcconfig */,
+				46245FBEB15997AD95A60C379F1BBA39 /* EAP8021XClient.release.xcconfig */,
+				4AA863FEB0FDC3A7263DF6C6FF414991 /* ResourceBundle-EAP8021XClient-EAP8021XClient-Info.plist */,
+			);
+			name = "Support Files";
+			path = "Example/macOS/Pods/Target Support Files/EAP8021XClient";
+			sourceTree = "<group>";
+		};
+		FAF295156BF3C1A3D95899989FBCB754 /* Pods-EAP8021XClient_Example */ = {
+			isa = PBXGroup;
+			children = (
+				7F51A45661D7AD921551C73431BE818B /* Pods-EAP8021XClient_Example.modulemap */,
+				25AAEDB51E4DCDC51DA1ADC2EBCDFBE2 /* Pods-EAP8021XClient_Example-acknowledgements.markdown */,
+				2DFDAAA44B7887DFDD142A0063BEC3E1 /* Pods-EAP8021XClient_Example-acknowledgements.plist */,
+				E412AB46A687C0F68E32CCC47D4966D6 /* Pods-EAP8021XClient_Example-dummy.m */,
+				370031061C77E8E7CA143BA238954890 /* Pods-EAP8021XClient_Example-frameworks.sh */,
+				088442BB1C94222699096650FCE3E97B /* Pods-EAP8021XClient_Example-Info.plist */,
+				D8D625C8E827DB30E3AA6F07825660BD /* Pods-EAP8021XClient_Example-umbrella.h */,
+				69F5C7D913023E3A39A763FE4CF1F50E /* Pods-EAP8021XClient_Example.debug.xcconfig */,
+				EB89784BC9DB88ED91F5542F679F387F /* Pods-EAP8021XClient_Example.release.xcconfig */,
+			);
+			name = "Pods-EAP8021XClient_Example";
+			path = "Target Support Files/Pods-EAP8021XClient_Example";
+			sourceTree = "<group>";
+		};
+		FB42B3AA3D054BBE614D7860B2C60E39 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				E301F7158105CACC3BC63279E27DEF9C /* Eap8021x.h */,
+				141137FE29F5F624064EA5EA6A547D76 /* SecTrustedApplicationPriv.h */,
+			);
+			name = include;
+			path = include;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6EBAF6AC33CB9A69FD009CB445746E24 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2240C57484E535DAEC657BC1E19F3A8A /* Pods-EAP8021XClient_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96738D619DB36F46BD984497BE3F97F2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31F1D6183951E763F17B2562D825DB56 /* CFRuntime.h in Headers */,
+				3FE499A5EDCF79DC58683B7525B7BF5C /* EAP.h in Headers */,
+				1A2CA072B82FF930254FCF11FD82F3F3 /* Eap8021x.h in Headers */,
+				47EAE4D6B41186E7A87CE091565EE4EE /* EAP8021XClient-umbrella.h in Headers */,
+				BBB07038E4E0942EA5582E0B89BF338D /* EAPCertificateUtil.h in Headers */,
+				A4AD22AEF1F77607340C354308B533D4 /* EAPClientProperties.h in Headers */,
+				49B40DD0D67A88A9253B6911E5DEB78C /* EAPOLClientConfiguration.h in Headers */,
+				D6CB0BBF3CC6782DB1663572703E3D43 /* EAPOLClientConfigurationPrivate.h in Headers */,
+				D539AB2CC8139310C602879BD64BFDD2 /* EAPOLControl.h in Headers */,
+				5061CB16F18019018383C31035F2D18C /* EAPOLControlTypes.h in Headers */,
+				EB8BC15911EA398B860309AF37016517 /* EAPSecurity.h in Headers */,
+				7F49A1D8890271DAF96AA42F76A1030E /* EAPUtil.h in Headers */,
+				43420269697FA55D9CF5A7281A082CE4 /* myCFUtil.h in Headers */,
+				A6616D8432D362F1E7AB91544663B56D /* SCPrivate.h in Headers */,
+				22E083CAE93585F8C65DB3425DFB8E5C /* SCValidation.h in Headers */,
+				3E99887B91E679AABEE0BA88677C88E6 /* SecTrustedApplicationPriv.h in Headers */,
+				CA1FB2477821CEDFF0568BD7D11920C7 /* symbol_scope.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C072335BA06DA7D2207EFA27D94EFC19 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				046F219DC2A01216A1FCA96ADA66DAB0 /* Pods-EAP8021XClient_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		13C9AE3C8639BC5D573D9D0462A2EC4D /* Pods-EAP8021XClient_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EAF7300ADD4BE91C60C849B464E46A12 /* Build configuration list for PBXNativeTarget "Pods-EAP8021XClient_Tests" */;
+			buildPhases = (
+				6EBAF6AC33CB9A69FD009CB445746E24 /* Headers */,
+				39DE67E1351FF3C4639E7E05A9327466 /* Sources */,
+				DFA20CE612384A1B64C163A0379866AA /* Frameworks */,
+				A6E36CA12C50A143100F33BCF2CCC02C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49D857512312B51C55920302D5EE61AD /* PBXTargetDependency */,
+			);
+			name = "Pods-EAP8021XClient_Tests";
+			productName = Pods_EAP8021XClient_Tests;
+			productReference = FB36651D6125FA8F75D7E3DF6F46DDA3 /* Pods-EAP8021XClient_Tests */;
+			productType = "com.apple.product-type.framework";
+		};
+		190CDBFD9070752A41E23FAD57000074 /* EAP8021XClient-EAP8021XClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2E02E9E3503A6C72BEE91FD55876245 /* Build configuration list for PBXNativeTarget "EAP8021XClient-EAP8021XClient" */;
+			buildPhases = (
+				193EE0C6B7C19BB8D1DB8A7A51398A1C /* Sources */,
+				00C4485FB92ECA86970C19ED59871056 /* Frameworks */,
+				4BCDC2E94E3D2566EEBE2BD14F554EA1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EAP8021XClient-EAP8021XClient";
+			productName = EAP8021XClient;
+			productReference = DE6FE92C62C0EADFB041B6CA5F68E9E3 /* EAP8021XClient-EAP8021XClient */;
+			productType = "com.apple.product-type.bundle";
+		};
+		204C540F0E75F9F121236367E1018009 /* Pods-EAP8021XClient_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0557A4F7970B6E3EBAC175C73CAFA2A3 /* Build configuration list for PBXNativeTarget "Pods-EAP8021XClient_Example" */;
+			buildPhases = (
+				C072335BA06DA7D2207EFA27D94EFC19 /* Headers */,
+				4AF328E8F38BAC4B6A0467E67C2A43DF /* Sources */,
+				8DA0A34FEA763599B858DAE717877AC1 /* Frameworks */,
+				2BB8D410233209292215E7D2D61947E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F6856761ED3053D4A412554BE54DF23E /* PBXTargetDependency */,
+			);
+			name = "Pods-EAP8021XClient_Example";
+			productName = Pods_EAP8021XClient_Example;
+			productReference = 1F3C77D013F3F5BE46FC47C8A5FF3AF8 /* Pods-EAP8021XClient_Example */;
+			productType = "com.apple.product-type.framework";
+		};
+		9BB9BE7ECEC0131CFDCA7B4BF9C67A69 /* EAP8021XClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 618D33270E0F95A68E42C7C35A17A89B /* Build configuration list for PBXNativeTarget "EAP8021XClient" */;
+			buildPhases = (
+				96738D619DB36F46BD984497BE3F97F2 /* Headers */,
+				A928490ED056CA16A2BE122207C9AD56 /* Sources */,
+				E1262AA8739BB5664F65760B549B23BF /* Frameworks */,
+				78C8EF651253798C7F90809F0857E0CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				042DC16510D5FF8AF13FEE1D68CE9115 /* PBXTargetDependency */,
+			);
+			name = EAP8021XClient;
+			productName = EAP8021XClient;
+			productReference = 5A94344F04359A9A9DA79A4B8382CC95 /* EAP8021XClient */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			minimizedProjectReferenceProxies = 0;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 6A19905138BBCC944901675E5E941CB7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9BB9BE7ECEC0131CFDCA7B4BF9C67A69 /* EAP8021XClient */,
+				190CDBFD9070752A41E23FAD57000074 /* EAP8021XClient-EAP8021XClient */,
+				204C540F0E75F9F121236367E1018009 /* Pods-EAP8021XClient_Example */,
+				13C9AE3C8639BC5D573D9D0462A2EC4D /* Pods-EAP8021XClient_Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2BB8D410233209292215E7D2D61947E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BCDC2E94E3D2566EEBE2BD14F554EA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6511785D2013D133B5FC1327D3B03BD2 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78C8EF651253798C7F90809F0857E0CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA7C05E6AC3B7778CB407D788321BCBB /* EAP8021XClient-EAP8021XClient in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6E36CA12C50A143100F33BCF2CCC02C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		193EE0C6B7C19BB8D1DB8A7A51398A1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		39DE67E1351FF3C4639E7E05A9327466 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B9771EE8578B2671716DB4FC8F35525 /* Pods-EAP8021XClient_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4AF328E8F38BAC4B6A0467E67C2A43DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				742ACD947BB9F938072AB0061FB8B39F /* Pods-EAP8021XClient_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A928490ED056CA16A2BE122207C9AD56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD0872593825B08C495003076A18E5AE /* Eap8021x.m in Sources */,
+				B9FD0C5A6A169DB7EF8E9D8409C0AD1E /* EAP8021XClient.swift in Sources */,
+				8EA0F2FE4E0E9C2FC0425B3A67BBD80E /* EAP8021XClient-dummy.m in Sources */,
+				4359DD34E3C1429D08FAD864BD1E8BB3 /* KeychainManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		042DC16510D5FF8AF13FEE1D68CE9115 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "EAP8021XClient-EAP8021XClient";
+			target = 190CDBFD9070752A41E23FAD57000074 /* EAP8021XClient-EAP8021XClient */;
+			targetProxy = 142C8B3174FCBA8AF3FC6089EB8255FC /* PBXContainerItemProxy */;
+		};
+		49D857512312B51C55920302D5EE61AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-EAP8021XClient_Example";
+			target = 204C540F0E75F9F121236367E1018009 /* Pods-EAP8021XClient_Example */;
+			targetProxy = 1BB2A9BECE8D4E0537B588D53635B09D /* PBXContainerItemProxy */;
+		};
+		F6856761ED3053D4A412554BE54DF23E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EAP8021XClient;
+			target = 9BB9BE7ECEC0131CFDCA7B4BF9C67A69 /* EAP8021XClient */;
+			targetProxy = 3BE2C9EEF17A6039DEF54713E29829BF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		05C27C4362DE925434AEF674A7F9A24E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33AD1BD2518CB2589B27E591F0EB91C6 /* EAP8021XClient.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/EAP8021XClient";
+				IBSC_MODULE = EAP8021XClient;
+				INFOPLIST_FILE = "Target Support Files/EAP8021XClient/ResourceBundle-EAP8021XClient-EAP8021XClient-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_NAME = EAP8021XClient;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		0AE172D8F2A4843BFACAD21A0ED26541 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		119C148B36923DB64A9DA8A06434349C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46245FBEB15997AD95A60C379F1BBA39 /* EAP8021XClient.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/EAP8021XClient/EAP8021XClient-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/EAP8021XClient/EAP8021XClient-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MODULEMAP_FILE = "Target Support Files/EAP8021XClient/EAP8021XClient.modulemap";
+				PRODUCT_MODULE_NAME = EAP8021XClient;
+				PRODUCT_NAME = EAP8021XClient;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		3A987F4C36D34BD765D8CB30C206EF5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F72DF346989A369359E0E9021D1BB13 /* Pods-EAP8021XClient_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-EAP8021XClient_Tests/Pods-EAP8021XClient_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MODULEMAP_FILE = "Target Support Files/Pods-EAP8021XClient_Tests/Pods-EAP8021XClient_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		808E544862838153672EA12FCC127D9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		9C0B6C8380C90B21F94814ED47D0197E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33AD1BD2518CB2589B27E591F0EB91C6 /* EAP8021XClient.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/EAP8021XClient/EAP8021XClient-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/EAP8021XClient/EAP8021XClient-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MODULEMAP_FILE = "Target Support Files/EAP8021XClient/EAP8021XClient.modulemap";
+				PRODUCT_MODULE_NAME = EAP8021XClient;
+				PRODUCT_NAME = EAP8021XClient;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		9DFBF3F90ACA0A974230F4015BCCC81F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46245FBEB15997AD95A60C379F1BBA39 /* EAP8021XClient.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/EAP8021XClient";
+				IBSC_MODULE = EAP8021XClient;
+				INFOPLIST_FILE = "Target Support Files/EAP8021XClient/ResourceBundle-EAP8021XClient-EAP8021XClient-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_NAME = EAP8021XClient;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		AF88B28541CC5564A18A6C6509BC0074 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB89784BC9DB88ED91F5542F679F387F /* Pods-EAP8021XClient_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-EAP8021XClient_Example/Pods-EAP8021XClient_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MODULEMAP_FILE = "Target Support Files/Pods-EAP8021XClient_Example/Pods-EAP8021XClient_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F88258FC75707499EF4741ABE561A833 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69F5C7D913023E3A39A763FE4CF1F50E /* Pods-EAP8021XClient_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-EAP8021XClient_Example/Pods-EAP8021XClient_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MODULEMAP_FILE = "Target Support Files/Pods-EAP8021XClient_Example/Pods-EAP8021XClient_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FB2C3B7AEDF7D447ACE0D4B0FF7EA369 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4AADD21460E6B48C95EA811BFE6C43E /* Pods-EAP8021XClient_Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-EAP8021XClient_Tests/Pods-EAP8021XClient_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MODULEMAP_FILE = "Target Support Files/Pods-EAP8021XClient_Tests/Pods-EAP8021XClient_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0557A4F7970B6E3EBAC175C73CAFA2A3 /* Build configuration list for PBXNativeTarget "Pods-EAP8021XClient_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F88258FC75707499EF4741ABE561A833 /* Debug */,
+				AF88B28541CC5564A18A6C6509BC0074 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				808E544862838153672EA12FCC127D9A /* Debug */,
+				0AE172D8F2A4843BFACAD21A0ED26541 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		618D33270E0F95A68E42C7C35A17A89B /* Build configuration list for PBXNativeTarget "EAP8021XClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C0B6C8380C90B21F94814ED47D0197E /* Debug */,
+				119C148B36923DB64A9DA8A06434349C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B2E02E9E3503A6C72BEE91FD55876245 /* Build configuration list for PBXNativeTarget "EAP8021XClient-EAP8021XClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05C27C4362DE925434AEF674A7F9A24E /* Debug */,
+				9DFBF3F90ACA0A974230F4015BCCC81F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EAF7300ADD4BE91C60C849B464E46A12 /* Build configuration list for PBXNativeTarget "Pods-EAP8021XClient_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A987F4C36D34BD765D8CB30C206EF5A /* Debug */,
+				FB2C3B7AEDF7D447ACE0D4B0FF7EA369 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

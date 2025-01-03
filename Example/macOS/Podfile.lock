@@ -1,0 +1,16 @@
+PODS:
+  - EAP8021XClient (0.1.0)
+
+DEPENDENCIES:
+  - EAP8021XClient (from `../../`)
+
+EXTERNAL SOURCES:
+  EAP8021XClient:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  EAP8021XClient: 5ee835c906247d8a6b6d3be93fb3af8bee68d90a
+
+PODFILE CHECKSUM: 5bf359524355efd2c4e7880bd22db6e535acd5bc
+
+COCOAPODS: 1.16.2

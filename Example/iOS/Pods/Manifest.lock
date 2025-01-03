@@ -1,0 +1,27 @@
+PODS:
+  - EAP8021XClient (0.1.0)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+
+DEPENDENCIES:
+  - EAP8021XClient (from `../../`)
+  - FBSnapshotTestCase (~> 2.1.4)
+
+SPEC REPOS:
+  trunk:
+    - FBSnapshotTestCase
+
+EXTERNAL SOURCES:
+  EAP8021XClient:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  EAP8021XClient: 5ee835c906247d8a6b6d3be93fb3af8bee68d90a
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+
+PODFILE CHECKSUM: e96af392a622a1ce75d7c93d4dd7dd9a3491848b
+
+COCOAPODS: 1.16.2

@@ -1,0 +1,6 @@
+framework module EAP8021XClient {
+  umbrella header "EAP8021XClient-umbrella.h"
+
+  export *
+  module * { export * }
+}
