@@ -213,79 +213,421 @@ public extension KeychainManager {
     }
 }
 
+#endif
+
 // MARK: - Save and fetch EAP Credentials
 
 public extension KeychainManager {
-    @available(macOS 10.15, *)
-    @available(iOS, unavailable)
-    static func saveEAPCredentials(username: String,
-                                   password: String,
-                                   ssid: String,
-                                   kind: String = "802.1x Password",
-                                   comment: String? = nil,
-                                   useSystemKeychain: Bool = false,
-                                   allAppsAccess: Bool = false) throws
-    {
-        let label = ssid
-        let account = username
-        let service = "com.apple.network.eap.user.item.wlan.ssid.\(ssid)" // 指定的 Where 值
-        var systemKeychain: SecKeychain?
-        if useSystemKeychain {
-            // 获取 System Keychain 的引用
-            // https://github.com/joshua-d-miller/macOSLAPS/blob/9c4046f5a6f019229cf560d19656c521cc059adf/macOSLAPS/Extensions/KeychainService.swift#L22
-            let systemKeychainPath = "/Library/Keychains/System.keychain"
-            if SecKeychainOpen(systemKeychainPath, &systemKeychain) != errSecSuccess ||
-                SecKeychainUnlock(systemKeychain, 0, nil, false) != errSecSuccess
-            {
-                systemKeychain = nil
-            }
+    enum AcceessControl {
+        /// 所有应用
+        case all
+        /// 特定应用
+        case specific(trustedApps: [String], trustedAppGoups: [String], includeSelf: Bool)
+    }
+
+    struct EAPCredential {
+        /// SSID, 可选, Keychain 的 Label
+        public let ssid: String?
+        /// 用户名, 可选, Keychain 的 Account
+        public let username: String?
+        /// 密码, 可选, Keychain 的 Value
+        public let password: String?
+        /// 凭证类型, 可选, Keychain 的 Description
+        public var kind: String?
+        /// 备注, 可选, Keychain 的 Comment
+        public var comment: String?
+        /// 服务
+        public var service: String?
+        /// 访问权限, 可选, only on macOS
+        @available(macOS 10.15, *)
+        public var accessControl: AcceessControl?
+
+        public init(ssid: String? = nil,
+                    username: String? = nil,
+                    password: String? = nil,
+                    kind: String? = nil,
+                    comment: String? = nil,
+                    service: String? = nil,
+                    accessControl: AcceessControl? = nil)
+        {
+            self.ssid = ssid
+            self.username = username
+            self.password = password
+            self.kind = kind
+            self.comment = comment
+            self.service = service
+            self.accessControl = accessControl
         }
 
-        // 删除旧的 Keychain 项（如果存在）
+        public init(attributes: [String: Any]) {
+            self.ssid = attributes[kSecAttrLabel as String] as? String
+            self.username = attributes[kSecAttrAccount as String] as? String
+            self.kind = attributes[kSecAttrDescription as String] as? String
+            self.comment = attributes[kSecAttrComment as String] as? String
+            self.service = attributes[kSecAttrService as String] as? String
+            self.password = {
+                guard let passwordData = attributes[kSecValueData as String] as? Data else { return nil }
+                return String(data: passwordData, encoding: .utf8)
+            }()
+        }
+    }
+
+    /// 保存 EAP 凭证
+    /// - Parameters:
+    ///   - credential: 凭证
+    ///   - useSystemKeychain: 是否使用 System Keychain, only on macOS
+    static func saveEAPCredential(_ credential: EAPCredential, useSystemKeychain: Bool = false) throws {
+        try saveEAPCredential(ssid: credential.ssid,
+                              username: credential.username,
+                              password: credential.password,
+                              kind: credential.kind,
+                              service: credential.service,
+                              comment: credential.comment,
+                              accessControl: credential.accessControl,
+                              useSystemKeychain: useSystemKeychain)
+    }
+
+    /// 保存 EAP 凭证
+    /// - Parameters:
+    ///   - ssid: 凭证标签, 可选
+    ///   - username: 用户名, 可选
+    ///   - password: 密码, 可选
+    ///   - kind: 凭证类型, 可选
+    ///   - service: 服务, 可选
+    ///   - comment: 备注, 可选
+    ///   - accessControl: 访问权限, 可选, only on macOS
+    ///   - useSystemKeychain: 是否使用 System Keychain, only on macOS
+    static func saveEAPCredential(ssid: String?,
+                                  username: String?,
+                                  password: String?,
+                                  kind: String? = nil,
+                                  service: String? = nil,
+                                  comment: String? = nil,
+                                  accessControl: AcceessControl? = nil,
+                                  useSystemKeychain: Bool = false) throws
+    {
+        let label = ssid
+        guard let label else {
+            throw EAPConfiguratorError.failedToSaveEapCredentials(errSecParam, "Label is required")
+        }
         var query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrLabel as String: label,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: account,
-            kSecAttrDescription as String: kind,
         ]
-        if useSystemKeychain, let systemKeychain {
-            query[kSecUseKeychain as String] = systemKeychain
+        if let username, !username.isEmpty {
+            query[kSecAttrAccount as String] = username
         }
-        if SecItemDelete(query as CFDictionary) != errSecSuccess {
-            debugPrint("Failed to delete old item.")
+        if let kind, !kind.isEmpty {
+            query[kSecAttrDescription as String] = kind
+        }
+        if let service, !service.isEmpty {
+            query[kSecAttrService as String] = service
         }
 
+#if os(macOS)
+        if useSystemKeychain, let systemKeychain = systemKeychain() {
+            query[kSecUseKeychain as String] = systemKeychain
+        }
+#endif
+        // 删除旧的 Keychain 项
+        _ = try? deleteEAPCredential(query: query)
+
+        // 添加新的 Keychain 项
+        var insertQuery: [String: Any] = [
+            kSecValueData as String: password?.data(using: .utf8) ?? Data(),
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
+        ]
+        if let comment {
+            insertQuery[kSecAttrComment as String] = comment
+        }
+
+#if os(macOS)
         // 配置 Access Control
+        if let accessRef = accessRef(label: label, acceessControl: accessControl) {
+            insertQuery[kSecAttrAccess as String] = accessRef
+        }
+#endif
+
+        query.merge(insertQuery) { $1 }
+
+        // https://www.osstatus.com/ 查询 osstatus 翻译
+        let status = SecItemAdd(query as CFDictionary, nil)
+        guard status == errSecSuccess else {
+            throw EAPConfiguratorError.failedToSaveEapCredentials(status, nil)
+        }
+    }
+
+    /// 获取单个 EAP 凭证
+    /// - Parameters:
+    ///   - ssid: SSID, 可选
+    ///   - kind: 凭证类型, 可选
+    ///   - username: 用户名, 可选
+    ///   - returnAttributes: 是否返回附加属性, 默认 true
+    ///   - returnData: 是否返回数据, 默认 true
+    ///   - fromSystemKeychain: 是否从 System Keychain 查询, only on macOS
+    /// - Returns: EAP 凭证
+    static func getEAPCredential(ssid: String?,
+                                 kind: String? = nil,
+                                 username: String? = nil,
+                                 returnAttributes: Bool = true,
+                                 returnData: Bool = true,
+                                 fromSystemKeychain: Bool = false) throws -> EAPCredential?
+    {
+        let query = getEAPCredentialQuery(ssid: ssid,
+                                          kind: kind,
+                                          username: username,
+                                          returnAttributes: returnAttributes,
+                                          returnData: returnData,
+                                          returnSingle: true,
+                                          fromSystemKeychain: fromSystemKeychain)
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        guard status != errSecItemNotFound else {
+            return nil
+        }
+        guard status == errSecSuccess, let attributes = result as? [String: Any] else {
+            throw EAPConfiguratorError.failedToGetEapCredentials(status)
+        }
+        return EAPCredential(attributes: attributes)
+    }
+
+    /// 获取多个 EAP 凭证, 返回的 EAPCredential 中不包含 password
+    /// - Parameters:
+    ///   - ssid: SSID, 可选
+    ///   - kind: 凭证类型, 可选
+    ///   - username: 用户名, 可选
+    ///   - returnAttributes: 是否返回附加属性, 默认 true
+    ///   - fromSystemKeychain: 是否从 System Keychain 查询, only on macOS
+    /// - Returns: EAP 凭证
+    static func getEAPCredentials(ssid: String?,
+                                  kind: String? = nil,
+                                  username: String? = nil,
+                                  returnAttributes: Bool = true,
+                                  fromSystemKeychain: Bool = false) throws -> [EAPCredential]
+    {
+        // 查询多个凭证，必须设置 kSecReturnData 为 false，否则查询报错
+        let query = getEAPCredentialQuery(ssid: ssid,
+                                          kind: kind,
+                                          username: username,
+                                          returnAttributes: returnAttributes,
+                                          returnData: false,
+                                          returnSingle: false,
+                                          fromSystemKeychain: fromSystemKeychain)
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        guard status != errSecItemNotFound else {
+            return []
+        }
+        guard status == errSecSuccess, let attributesList = result as? [[String: Any]] else {
+            throw EAPConfiguratorError.failedToGetEapCredentials(status)
+        }
+        return attributesList.map { EAPCredential(attributes: $0) }
+    }
+
+    /// 获取 EAP 凭证查询条件
+    /// - Parameters:
+    ///   - ssid: SSID, 可选
+    ///   - kind: 凭证类型, 可选
+    ///   - username: 用户名, 可选
+    ///   - returnAttributes: 是否返回附加属性, 默认 true
+    ///   - returnData: 是否返回数据, 默认 true
+    ///   - returnSingle: 是否返回单个凭证, 默认 true
+    ///   - fromSystemKeychain: 是否从 System Keychain 查询, only on macOS
+    /// - Returns: 查询条件
+    private static func getEAPCredentialQuery(ssid: String?,
+                                              kind: String? = nil,
+                                              username: String? = nil,
+                                              returnAttributes: Bool = true,
+                                              returnData: Bool = true,
+                                              returnSingle: Bool = true,
+                                              fromSystemKeychain: Bool = false) -> [String: Any]
+    {
+        var query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecReturnData as String: returnData, // 返回数据
+            kSecReturnAttributes as String: returnAttributes, // 返回附加属性（如 Label 等）
+            kSecMatchLimit as String: returnSingle ? kSecMatchLimitOne : kSecMatchLimitAll, // 仅返回一个匹配项
+        ]
+        if let ssid, !ssid.isEmpty {
+            query[kSecAttrLabel as String] = ssid
+        }
+        if let username, !username.isEmpty {
+            query[kSecAttrAccount as String] = username
+        }
+        if let kind, !kind.isEmpty {
+            query[kSecAttrDescription as String] = kind
+        }
+#if os(macOS)
+        if fromSystemKeychain, let systemKeychain = systemKeychain() {
+            query[kSecUseKeychain as String] = systemKeychain
+        }
+#endif
+        return query
+    }
+
+    /// 删除 EAP 凭证
+    /// - Parameters:
+    ///   - ssid: SSID
+    ///   - username: 用户名, 可选
+    ///   - kind: 凭证类型, 可选
+    ///   - service: 服务, 可选
+    ///   - useSystemKeychain: 是否使用 System Keychain, only on macOS
+    /// - Returns: 是否删除成功, 如果凭证不存在, 则返回 false
+    @discardableResult
+    static func deleteEAPCredential(ssid: String,
+                                    username: String? = nil,
+                                    kind: String? = nil,
+                                    service: String? = nil,
+                                    useSystemKeychain: Bool = false) throws -> Bool
+    {
+        var query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrLabel as String: ssid,
+        ]
+        if let username, !username.isEmpty {
+            query[kSecAttrAccount as String] = username
+        }
+        if let kind, !kind.isEmpty {
+            query[kSecAttrDescription as String] = kind
+        }
+        if let service, !service.isEmpty {
+            query[kSecAttrService as String] = service
+        }
+#if os(macOS)
+        if useSystemKeychain, let systemKeychain = systemKeychain() {
+            query[kSecUseKeychain as String] = systemKeychain
+        }
+#endif
+        return try deleteEAPCredential(query: query)
+    }
+
+    @discardableResult
+    private static func deleteEAPCredential(query: [String: Any]) throws -> Bool {
+        // 删除前先判断是否存在
+        guard SecItemCopyMatching(query as CFDictionary, nil) == errSecSuccess else {
+            // 不存在，直接返回
+            return false
+        }
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == errSecSuccess else {
+            throw EAPConfiguratorError.failedToDeleteEapCredentials(status)
+        }
+        return true
+    }
+
+#if os(macOS)
+    /// 获取 System Keychain
+    /// Reference: https://github.com/joshua-d-miller/macOSLAPS/blob/9c4046f5a6f019229cf560d19656c521cc059adf/macOSLAPS/Extensions/KeychainService.swift#L22
+    /// - Returns: System Keychain 的引用
+    private static func systemKeychain() -> SecKeychain? {
+        var systemKeychain: SecKeychain?
+        let systemKeychainPath = "/Library/Keychains/System.keychain"
+        if SecKeychainOpen(systemKeychainPath, &systemKeychain) != errSecSuccess || SecKeychainUnlock(systemKeychain, 0, nil, false) != errSecSuccess {
+            systemKeychain = nil
+        }
+        return systemKeychain
+    }
+#endif
+}
+
+// MARK: - Error Handing
+
+public extension KeychainManager {
+    enum EAPConfiguratorError: LocalizedError {
+        /// Unable parse pem file
+        case failedToParsePemFile
+
+        /// Unable to add certificate to keychain
+        case failedSecItemAdd(OSStatus, String, label: String? = nil)
+
+        /// Unable to copy from keychain
+        case failedSecItemCopyMatching(OSStatus)
+
+        /// Unable to decode certificate dat
+        case failedToBase64DecodeCertificate
+
+        /// Unable to create certificate from data
+        case failedToCreateCertificateFromData
+
+        /// Unable to get common name or subject sequence f from certificate
+        case failedToCopyCommonNameOrSubjectSequence
+
+        /// Unable to fetch identity
+        case failedToFetchIdentity(OSStatus, String)
+
+        /// Unable to trust certificate
+        case failedToTrustCertificate(OSStatus)
+
+        /// Unable to save eap credentials
+        case failedToSaveEapCredentials(OSStatus, String?)
+
+        /// Unable to get eap credentials
+        case failedToGetEapCredentials(OSStatus)
+
+        /// Unable to delete eap credentials
+        case failedToDeleteEapCredentials(OSStatus)
+
+        public var errorDescription: String? {
+            switch self {
+            case .failedToParsePemFile:
+                return "Unable to parse pem file"
+            case .failedSecItemAdd(let oSStatus, let string, let label):
+                return "Unable to add certificate to keychain: \(oSStatus) - \(string) - \(label ?? "")"
+            case .failedSecItemCopyMatching(let oSStatus):
+                return "Unable to copy from keychain: \(oSStatus)"
+            case .failedToBase64DecodeCertificate:
+                return "Unable to decode certificate data"
+            case .failedToCreateCertificateFromData:
+                return "Unable to create certificate from data"
+            case .failedToCopyCommonNameOrSubjectSequence:
+                return "Unable to get common name or subject sequence from certificate"
+            case .failedToFetchIdentity(let oSStatus, let string):
+                return "Unable to fetch identity: \(oSStatus) - \(string)"
+            case .failedToTrustCertificate(let oSStatus):
+                return "Unable to trust certificate: \(oSStatus)"
+            case .failedToSaveEapCredentials(let oSStatus, let string):
+                var message = "\(oSStatus)"
+                if let string { message += " - \(string)" }
+                return "Unable to save eap credentials: \(message)"
+            case .failedToGetEapCredentials(let oSStatus):
+                return "Unable to get eap credentials: \(oSStatus)"
+            case .failedToDeleteEapCredentials(let oSStatus):
+                return "Unable to delete eap credentials: \(oSStatus)"
+            }
+        }
+    }
+}
+
+// MARK: - Access Control
+
+#if os(macOS)
+
+extension KeychainManager {
+    static func accessRef(label: String, acceessControl: KeychainManager.AcceessControl?) -> SecAccess? {
+        guard let acceessControl else {
+            return nil
+        }
         var accessRef: SecAccess?
-        if allAppsAccess {
+        switch acceessControl {
+        case .all:
             let accessCreateStatus = SecAccessCreateForAllApplications(descriptor: "" as CFString, accessRef: &accessRef)
             if accessCreateStatus != errSecSuccess {
                 accessRef = nil
             }
-        } else {
+        case .specific(let trustedAppsPaths, let trustedAppGoups, let includeSelf):
             var trustedApps = [SecTrustedApplication]()
             var trustedAppRef: SecTrustedApplication?
 
-            // https://github.com/appleopen/eap8021x/blob/0874da7abfb50ef67186cf048cd833e0f8f43b1b/EAP8021X.fproj/EAPKeychainUtil.c#L966
-            let airPortApplicationGroup = "AirPort"
-            if SecTrustedApplicationCreateApplicationGroup(airPortApplicationGroup.cString(using: .utf8), nil, &trustedAppRef) == errSecSuccess, let trustedApp = trustedAppRef {
-                trustedApps.append(trustedApp)
-                trustedAppRef = nil
-            }
-
-            if SecTrustedApplicationCreateFromPath(nil, &trustedAppRef) == errSecSuccess, let trustedApp = trustedAppRef {
+            // App Self
+            if includeSelf, SecTrustedApplicationCreateFromPath(nil, &trustedAppRef) == errSecSuccess,
+               let trustedApp = trustedAppRef
+            {
                 // App Self
                 trustedApps.append(trustedApp)
                 trustedAppRef = nil
             }
 
-            let trustedAppsPaths = [
-                "/System/Library/SystemConfiguration/EAPOLController.bundle/Contents/Resources/eapolclient",
-                "/usr/libexec/airportd",
-                "/System/Library/CoreServices/SystemUIServer.app",
-                "/System/Library/CoreServices/WiFiAgent.app",
-            ]
+            // Trusted Apps
             for trustedAppPath in trustedAppsPaths {
                 if FileManager.default.fileExists(atPath: trustedAppPath),
                    SecTrustedApplicationCreateFromPath(trustedAppPath, &trustedAppRef) == errSecSuccess,
@@ -295,30 +637,24 @@ public extension KeychainManager {
                     trustedAppRef = nil
                 }
             }
+
+            // Trusted App Groups
+            // https://github.com/appleopen/eap8021x/blob/0874da7abfb50ef67186cf048cd833e0f8f43b1b/EAP8021X.fproj/EAPKeychainUtil.c#L966
+            for trustedAppGroup in trustedAppGoups {
+                if SecTrustedApplicationCreateApplicationGroup(trustedAppGroup.cString(using: .utf8), nil, &trustedAppRef) == errSecSuccess,
+                   let trustedApp = trustedAppRef
+                {
+                    trustedApps.append(trustedApp)
+                    trustedAppRef = nil
+                }
+            }
+
             let result = SecAccessCreate(label as CFString, trustedApps as CFArray, &accessRef)
             if result != errSecSuccess {
                 accessRef = nil
             }
         }
-
-        // 添加新的 Keychain 项
-        var insertQuery: [String: Any] = [
-            kSecValueData as String: password.data(using: .utf8) ?? Data(),
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
-        ]
-        if let comment {
-            insertQuery[kSecAttrComment as String] = comment
-        }
-        query.merge(insertQuery) { $1 }
-        if let accessRef {
-            query[kSecAttrAccess as String] = accessRef
-        }
-
-        // https://www.osstatus.com/ 查询 osstatus 翻译
-        let status = SecItemAdd(query as CFDictionary, nil)
-        guard status == errSecSuccess else {
-            throw EAPConfiguratorError.failedToSaveEapCredentials(status)
-        }
+        return accessRef
     }
 
     // https://stackoverflow.com/a/61702736
@@ -373,59 +709,3 @@ public extension KeychainManager {
 }
 
 #endif
-
-// MARK: - Error Handing
-
-public extension KeychainManager {
-    enum EAPConfiguratorError: LocalizedError {
-        /// Unable parse pem file
-        case failedToParsePemFile
-
-        /// Unable to add certificate to keychain
-        case failedSecItemAdd(OSStatus, String, label: String? = nil)
-
-        /// Unable to copy from keychain
-        case failedSecItemCopyMatching(OSStatus)
-
-        /// Unable to decode certificate dat
-        case failedToBase64DecodeCertificate
-
-        /// Unable to create certificate from data
-        case failedToCreateCertificateFromData
-
-        /// Unable to get common name or subject sequence f from certificate
-        case failedToCopyCommonNameOrSubjectSequence
-
-        /// Unable to fetch identity
-        case failedToFetchIdentity(OSStatus, String)
-
-        /// Unable to trust certificate
-        case failedToTrustCertificate(OSStatus)
-
-        /// Unable to save eap credentials
-        case failedToSaveEapCredentials(OSStatus)
-
-        public var errorDescription: String? {
-            switch self {
-            case .failedToParsePemFile:
-                return "Unable to parse pem file"
-            case .failedSecItemAdd(let oSStatus, let string, let label):
-                return "Unable to add certificate to keychain: \(oSStatus) - \(string) - \(label ?? "")"
-            case .failedSecItemCopyMatching(let oSStatus):
-                return "Unable to copy from keychain: \(oSStatus)"
-            case .failedToBase64DecodeCertificate:
-                return "Unable to decode certificate data"
-            case .failedToCreateCertificateFromData:
-                return "Unable to create certificate from data"
-            case .failedToCopyCommonNameOrSubjectSequence:
-                return "Unable to get common name or subject sequence from certificate"
-            case .failedToFetchIdentity(let oSStatus, let string):
-                return "Unable to fetch identity: \(oSStatus) - \(string)"
-            case .failedToTrustCertificate(let oSStatus):
-                return "Unable to trust certificate: \(oSStatus)"
-            case .failedToSaveEapCredentials(let oSStatus):
-                return "Unable to save eap credentials: \(oSStatus)"
-            }
-        }
-    }
-}
