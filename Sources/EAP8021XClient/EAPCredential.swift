@@ -88,4 +88,19 @@ public extension EAPCredential {
     override var description: String {
         "EAPCredential(ssid: \(ssid ?? "null"), username: \(username ?? "null"), password: \(password ?? "null"), kind: \(kind ?? "null"), comment: \(comment ?? "null"), service: \(service ?? "null"), accessControl: \(String(describing: accessControl))"
     }
+
+    var jsonStr: String? {
+        guard let jsonData = try? JSONEncoder().encode(self) else { return nil }
+        return String(data: jsonData, encoding: .utf8)
+    }
+
+    convenience init?(jsonStr: String?) {
+        guard let jsonStr,
+              let jsonData = jsonStr.data(using: .utf8),
+              let credential = try? JSONDecoder().decode(EAPCredential.self, from: jsonData)
+        else {
+            return nil
+        }
+        self.init(ssid: credential.ssid, username: credential.username, password: credential.password, kind: credential.kind, comment: credential.comment, service: credential.service, accessControl: credential.accessControl)
+    }
 }
