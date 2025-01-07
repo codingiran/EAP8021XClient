@@ -7,7 +7,8 @@
 
 import Foundation
 
-open class EAPCredential: Codable, NSSecureCoding {
+@objc(EAPCredential)
+open class EAPCredential: NSObject, Codable, NSSecureCoding {
     public enum AcceessControl: Codable {
         /// 所有应用
         case all
@@ -83,8 +84,8 @@ open class EAPCredential: Codable, NSSecureCoding {
     }
 }
 
-extension EAPCredential: CustomStringConvertible {
-    public var description: String {
+public extension EAPCredential {
+    override var description: String {
         "EAPCredential(ssid: \(ssid ?? "null"), username: \(username ?? "null"), password: \(password ?? "null"), kind: \(kind ?? "null"), comment: \(comment ?? "null"), service: \(service ?? "null"), accessControl: \(String(describing: accessControl))"
     }
 }
