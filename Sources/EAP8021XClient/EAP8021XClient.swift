@@ -5,8 +5,8 @@ import Foundation
 #error("EAP8021XClient doesn't support Swift versions below 5.5.")
 #endif
 
-/// Current EAP8021XClient version 0.3.1. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
-let version = "0.3.1"
+/// Current EAP8021XClient version 0.3.2. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
+let version = "0.3.2"
 
 public enum EAP8021XClient {}
 
@@ -75,7 +75,7 @@ public extension EAP8021XClient {
                                   allAppsAccess: Bool = false,
                                   useSystemKeychain: Bool = false) throws
     {
-        let accessControl: KeychainManager.AcceessControl? = {
+        let accessControl: EAPCredential.AcceessControl? = {
 #if os(macOS)
             if allAppsAccess {
                 return .all
@@ -93,13 +93,13 @@ public extension EAP8021XClient {
             return nil
 #endif
         }()
-        let credential = KeychainManager.EAPCredential(ssid: ssid,
-                                                       username: username,
-                                                       password: password,
-                                                       kind: kind,
-                                                       comment: comment,
-                                                       service: service,
-                                                       accessControl: accessControl)
+        let credential = EAPCredential(ssid: ssid,
+                                       username: username,
+                                       password: password,
+                                       kind: kind,
+                                       comment: comment,
+                                       service: service,
+                                       accessControl: accessControl)
         try saveEAPCredential(credential, useSystemKeychain: useSystemKeychain)
     }
 
@@ -107,7 +107,7 @@ public extension EAP8021XClient {
     /// - Parameters:
     ///   - credential: EAP 凭证
     ///   - useSystemKeychain: 是否使用 System Keychain
-    static func saveEAPCredential(_ credential: KeychainManager.EAPCredential, useSystemKeychain: Bool = false) throws {
+    static func saveEAPCredential(_ credential: EAPCredential, useSystemKeychain: Bool = false) throws {
         try KeychainManager.saveEAPCredential(credential, useSystemKeychain: useSystemKeychain)
     }
 
@@ -125,7 +125,7 @@ public extension EAP8021XClient {
                                  username: String? = nil,
                                  comment: String? = nil,
                                  returnAttributes: Bool = true,
-                                 returnData: Bool = true) throws -> KeychainManager.EAPCredential?
+                                 returnData: Bool = true) throws -> EAPCredential?
     {
         try KeychainManager.getEAPCredential(ssid: ssid,
                                              kind: kind,
@@ -149,7 +149,7 @@ public extension EAP8021XClient {
                                   username: String? = nil,
                                   comment: String? = nil,
                                   returnAttributes: Bool = true,
-                                  returnData: Bool = false) throws -> [KeychainManager.EAPCredential]
+                                  returnData: Bool = false) throws -> [EAPCredential]
     {
         let credentials = try KeychainManager.getEAPCredentials(ssid: ssid,
                                                                 kind: kind,

@@ -218,64 +218,6 @@ public extension KeychainManager {
 // MARK: - Save and fetch EAP Credentials
 
 public extension KeychainManager {
-    enum AcceessControl: Codable {
-        /// 所有应用
-        case all
-        /// 特定应用
-        case specific(trustedApps: [String], trustedAppGoups: [String], includeSelf: Bool)
-    }
-
-    struct EAPCredential: Codable, CustomStringConvertible {
-        /// SSID, 可选, Keychain 的 Label
-        public let ssid: String?
-        /// 用户名, 可选, Keychain 的 Account
-        public let username: String?
-        /// 密码, 可选, Keychain 的 Value
-        public let password: String?
-        /// 凭证类型, 可选, Keychain 的 Description
-        public var kind: String?
-        /// 备注, 可选, Keychain 的 Comment
-        public var comment: String?
-        /// 服务
-        public var service: String?
-        /// 访问权限, 可选, only on macOS
-        @available(macOS 10.15, *)
-        public var accessControl: AcceessControl?
-
-        public init(ssid: String? = nil,
-                    username: String? = nil,
-                    password: String? = nil,
-                    kind: String? = nil,
-                    comment: String? = nil,
-                    service: String? = nil,
-                    accessControl: AcceessControl? = nil)
-        {
-            self.ssid = ssid
-            self.username = username
-            self.password = password
-            self.kind = kind
-            self.comment = comment
-            self.service = service
-            self.accessControl = accessControl
-        }
-
-        public init(attributes: [String: Any]) {
-            self.ssid = attributes[kSecAttrLabel as String] as? String
-            self.username = attributes[kSecAttrAccount as String] as? String
-            self.kind = attributes[kSecAttrDescription as String] as? String
-            self.comment = attributes[kSecAttrComment as String] as? String
-            self.service = attributes[kSecAttrService as String] as? String
-            self.password = {
-                guard let passwordData = attributes[kSecValueData as String] as? Data else { return nil }
-                return String(data: passwordData, encoding: .utf8)
-            }()
-        }
-
-        public var description: String {
-            "EAPCredential(ssid: \(ssid ?? "null"), username: \(username ?? "null"), password: \(password ?? "null"), kind: \(kind ?? "null"), comment: \(comment ?? "null"), service: \(service ?? "null"), accessControl: \(String(describing: accessControl))"
-        }
-    }
-
     /// 保存 EAP 凭证
     /// - Parameters:
     ///   - credential: 凭证
@@ -307,7 +249,7 @@ public extension KeychainManager {
                                   kind: String? = nil,
                                   service: String? = nil,
                                   comment: String? = nil,
-                                  accessControl: AcceessControl? = nil,
+                                  accessControl: EAPCredential.AcceessControl? = nil,
                                   useSystemKeychain: Bool = false) throws
     {
         let label = ssid
@@ -618,7 +560,7 @@ public extension KeychainManager {
 #if os(macOS)
 
 extension KeychainManager {
-    static func accessRef(label: String, acceessControl: KeychainManager.AcceessControl?) -> SecAccess? {
+    static func accessRef(label: String, acceessControl: EAPCredential.AcceessControl?) -> SecAccess? {
         guard let acceessControl else {
             return nil
         }
