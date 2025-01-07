@@ -11,10 +11,10 @@ final class EAP8021XClientTests: XCTestCase {
     }
 
     func testSaveCredentials() throws {
-        let ssid = "ZenNet-Radius-Iran"
+        let ssid = "ZenNet-Radius-Test9"
         try EAP8021XClient.saveEAPCredential(ssid: ssid,
-                                             username: "iran.qiu@zenlayer.com",
-                                             password: "1qazddd",
+                                             username: "lazy.zhu@zenlayer.com",
+                                             password: "1qaz@WSX",
                                              kind: "Zurbo 802.1x Password",
                                              service: "com.apple.network.eap.user.item.wlan.ssid.\(ssid)",
                                              comment: "For ZenLayer",
@@ -23,13 +23,13 @@ final class EAP8021XClientTests: XCTestCase {
     }
 
     func testFetchCredential() throws {
-        let credentials = try EAP8021XClient.getEAPCredential(ssid: "ZenNet-Radius-Iran")
-        debugPrint("-------")
+        let credential = try EAP8021XClient.getEAPCredential(ssid: nil, comment: "For ZenLayer")
+        debugPrint("-------\(credential?.description)")
     }
 
     func testFetchCredentials() throws {
-        let credentials = try EAP8021XClient.getEAPCredentials(ssid: nil, kind: "Zurbo 802.1x Password")
-        debugPrint("-------")
+        let credentials = try EAP8021XClient.getEAPCredentials(ssid: nil, comment: "For ZenLayer", returnData: true)
+        debugPrint("-------\(credentials.description)")
     }
 
     func testDeleteCredential() throws {

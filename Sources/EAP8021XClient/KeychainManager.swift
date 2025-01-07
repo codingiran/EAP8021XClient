@@ -218,14 +218,14 @@ public extension KeychainManager {
 // MARK: - Save and fetch EAP Credentials
 
 public extension KeychainManager {
-    enum AcceessControl {
+    enum AcceessControl: Codable {
         /// 所有应用
         case all
         /// 特定应用
         case specific(trustedApps: [String], trustedAppGoups: [String], includeSelf: Bool)
     }
 
-    struct EAPCredential {
+    struct EAPCredential: Codable, CustomStringConvertible {
         /// SSID, 可选, Keychain 的 Label
         public let ssid: String?
         /// 用户名, 可选, Keychain 的 Account
@@ -269,6 +269,10 @@ public extension KeychainManager {
                 guard let passwordData = attributes[kSecValueData as String] as? Data else { return nil }
                 return String(data: passwordData, encoding: .utf8)
             }()
+        }
+
+        public var description: String {
+            "EAPCredential(ssid: \(ssid ?? "null"), username: \(username ?? "null"), password: \(password ?? "null"), kind: \(kind ?? "null"), comment: \(comment ?? "null"), service: \(service ?? "null"), accessControl: \(String(describing: accessControl))"
         }
     }
 
@@ -362,6 +366,7 @@ public extension KeychainManager {
     ///   - ssid: SSID, 可选
     ///   - kind: 凭证类型, 可选
     ///   - username: 用户名, 可选
+    ///   - comment: 备注, 可选
     ///   - returnAttributes: 是否返回附加属性, 默认 true
     ///   - returnData: 是否返回数据, 默认 true
     ///   - fromSystemKeychain: 是否从 System Keychain 查询, only on macOS
@@ -369,6 +374,7 @@ public extension KeychainManager {
     static func getEAPCredential(ssid: String?,
                                  kind: String? = nil,
                                  username: String? = nil,
+                                 comment: String? = nil,
                                  returnAttributes: Bool = true,
                                  returnData: Bool = true,
                                  fromSystemKeychain: Bool = false) throws -> EAPCredential?
@@ -376,6 +382,7 @@ public extension KeychainManager {
         let query = getEAPCredentialQuery(ssid: ssid,
                                           kind: kind,
                                           username: username,
+                                          comment: comment,
                                           returnAttributes: returnAttributes,
                                           returnData: returnData,
                                           returnSingle: true,
@@ -396,12 +403,14 @@ public extension KeychainManager {
     ///   - ssid: SSID, 可选
     ///   - kind: 凭证类型, 可选
     ///   - username: 用户名, 可选
+    ///   - comment: 备注, 可选
     ///   - returnAttributes: 是否返回附加属性, 默认 true
     ///   - fromSystemKeychain: 是否从 System Keychain 查询, only on macOS
     /// - Returns: EAP 凭证
     static func getEAPCredentials(ssid: String?,
                                   kind: String? = nil,
                                   username: String? = nil,
+                                  comment: String? = nil,
                                   returnAttributes: Bool = true,
                                   fromSystemKeychain: Bool = false) throws -> [EAPCredential]
     {
@@ -409,6 +418,7 @@ public extension KeychainManager {
         let query = getEAPCredentialQuery(ssid: ssid,
                                           kind: kind,
                                           username: username,
+                                          comment: comment,
                                           returnAttributes: returnAttributes,
                                           returnData: false,
                                           returnSingle: false,
@@ -429,6 +439,7 @@ public extension KeychainManager {
     ///   - ssid: SSID, 可选
     ///   - kind: 凭证类型, 可选
     ///   - username: 用户名, 可选
+    ///   - comment: 备注, 可选
     ///   - returnAttributes: 是否返回附加属性, 默认 true
     ///   - returnData: 是否返回数据, 默认 true
     ///   - returnSingle: 是否返回单个凭证, 默认 true
@@ -437,6 +448,7 @@ public extension KeychainManager {
     private static func getEAPCredentialQuery(ssid: String?,
                                               kind: String? = nil,
                                               username: String? = nil,
+                                              comment: String? = nil,
                                               returnAttributes: Bool = true,
                                               returnData: Bool = true,
                                               returnSingle: Bool = true,
@@ -456,6 +468,9 @@ public extension KeychainManager {
         }
         if let kind, !kind.isEmpty {
             query[kSecAttrDescription as String] = kind
+        }
+        if let comment, !comment.isEmpty {
+            query[kSecAttrComment as String] = comment
         }
 #if os(macOS)
         if fromSystemKeychain, let systemKeychain = systemKeychain() {

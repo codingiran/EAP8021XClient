@@ -5,8 +5,8 @@ import Foundation
 #error("EAP8021XClient doesn't support Swift versions below 5.5.")
 #endif
 
-/// Current EAP8021XClient version 0.3.0. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
-let version = "0.3.0"
+/// Current EAP8021XClient version 0.3.1. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
+let version = "0.3.1"
 
 public enum EAP8021XClient {}
 
@@ -116,37 +116,59 @@ public extension EAP8021XClient {
     ///   - ssid: SSID
     ///   - kind: 凭证类型
     ///   - username: 用户名
+    ///   - comment: 备注
+    ///   - returnAttributes: 是否返回附加属性
     ///   - returnData: 是否返回数据
     /// - Returns: EAP 凭证
     static func getEAPCredential(ssid: String?,
                                  kind: String? = nil,
                                  username: String? = nil,
+                                 comment: String? = nil,
                                  returnAttributes: Bool = true,
                                  returnData: Bool = true) throws -> KeychainManager.EAPCredential?
     {
         try KeychainManager.getEAPCredential(ssid: ssid,
                                              kind: kind,
                                              username: username,
+                                             comment: comment,
                                              returnAttributes: returnAttributes,
                                              returnData: returnData)
     }
 
-    /// 获取多个 EAP 凭证，返回的 EAPCredential 中不包含 password
+    /// 获取多个 EAP 凭证，默认返回的 EAPCredential 中不包含 password，如果需要返回密码可将 returnData 设置为 true，但这是个耗时操作
     /// - Parameters:
     ///   - ssid: SSID
     ///   - kind: 凭证类型
     ///   - username: 用户名
+    ///   - comment: 备注
     ///   - returnAttributes: 是否返回附加属性
+    ///   - returnData: 是否返回数据，如果将 returnData 设置为 true 会进行多次查询
     /// - Returns: EAP 凭证列表
     static func getEAPCredentials(ssid: String?,
                                   kind: String? = nil,
                                   username: String? = nil,
-                                  returnAttributes: Bool = true) throws -> [KeychainManager.EAPCredential]
+                                  comment: String? = nil,
+                                  returnAttributes: Bool = true,
+                                  returnData: Bool = false) throws -> [KeychainManager.EAPCredential]
     {
-        try KeychainManager.getEAPCredentials(ssid: ssid,
-                                              kind: kind,
-                                              username: username,
-                                              returnAttributes: returnAttributes)
+        let credentials = try KeychainManager.getEAPCredentials(ssid: ssid,
+                                                                kind: kind,
+                                                                username: username,
+                                                                comment: comment,
+                                                                returnAttributes: returnAttributes)
+        guard returnData else { return credentials }
+        return try credentials.map {
+            guard let newCredential = try KeychainManager.getEAPCredential(ssid: $0.ssid,
+                                                                           kind: $0.kind,
+                                                                           username: $0.username,
+                                                                           comment: $0.comment,
+                                                                           returnAttributes: returnAttributes,
+                                                                           returnData: returnData)
+            else {
+                return $0
+            }
+            return newCredential
+        }
     }
 
     /// 删除 EAP 凭证
