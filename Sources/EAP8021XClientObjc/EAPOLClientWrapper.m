@@ -403,7 +403,7 @@
 
 @implementation EAPOLClientWrapper (EAPSecTrustedApplicationGroup)
 
-+ (OSStatus)SecTrustedApplicationCreateApplicationGroup:(nullable const char *)groupName
++ (OSStatus)secTrustedApplicationCreateApplicationGroup:(nullable const char *)groupName
                                                  anchor:(nullable SecCertificateRef)anchor
                                                     app:(SecTrustedApplicationRef * __nonnull CF_RETURNS_RETAINED)app {
     return SecTrustedApplicationCreateApplicationGroup(groupName, anchor, app);

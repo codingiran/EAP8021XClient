@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///   - anchor: Anchor
 ///   - app: App
 /// - Returns: OSStatus
-+ (OSStatus)SecTrustedApplicationCreateApplicationGroup:(nullable const char *)groupName
++ (OSStatus)secTrustedApplicationCreateApplicationGroup:(nullable const char *)groupName
                                                  anchor:(nullable SecCertificateRef)anchor
                                                     app:(SecTrustedApplicationRef * __nonnull CF_RETURNS_RETAINED)app;
 
