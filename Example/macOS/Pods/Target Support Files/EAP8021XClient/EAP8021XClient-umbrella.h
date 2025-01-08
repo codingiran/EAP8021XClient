@@ -10,7 +10,7 @@
 #endif
 #endif
 
-#import "Eap8021x.h"
+#import "EAPOLClientWrapper.h"
 #import "SecTrustedApplicationPriv.h"
 
 FOUNDATION_EXPORT double EAP8021XClientVersionNumber;

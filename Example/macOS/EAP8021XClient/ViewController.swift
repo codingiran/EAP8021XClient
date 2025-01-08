@@ -12,11 +12,11 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let profiles = Eap8021x.listProfiles()
+        let profiles = EAPOLClientWrapper.listProfiles()
         debugPrint("---")
         
-//        Eap8021x.removeProfile(withSSID: "ZenNet-Radius-Test")
-//        
+//        EAPOLClientWrapper.removeProfile(withSSID: "ZenNet-Radius-Test")
+//
 //        return
 
         let cerContent = """
@@ -46,13 +46,13 @@ class ViewController: NSViewController {
         """.replacingOccurrences(of: "\n", with: "")
 
         if let cerData = Data(base64Encoded: cerContent) {
-            Eap8021x.createProfile(withSSID: "ZenNet-Radius-Test",
-                                   acceptEAPTypes: [NSNumber(value: Eap8021xEAPType.PEAP.rawValue)],
+            EAPOLClientWrapper.createProfile(withSSID: "ZenNet-Radius-Test",
+                                   acceptEAPTypes: [NSNumber(value: EAP8021xEAPType.PEAP.rawValue)],
                                    userDefinedName: "TurboXWIFI",
                                    domainName: nil,
-                                   securityType: Eap8021xSecurityType.any,
+                                   securityType: EAP8021xSecurityType.any,
                                    outerIdentity: nil,
-                                   ttlSInnerAuthentication: Eap8021TTLSInnerAuthType.mschaPv2,
+                                   ttlSInnerAuthentication: EAP8021TTLSInnerAuthType.mschaPv2,
                                    trustedServerName: nil,
                                    trustedCertificate: [cerData])
         }

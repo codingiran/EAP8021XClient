@@ -39,6 +39,7 @@ let package = Package(
                 .headerSearchPath("headers/CoreFoundation/", .when(platforms: [.macOS])),
                 .headerSearchPath("headers/EAP8021X/", .when(platforms: [.macOS])),
                 .headerSearchPath("headers/SystemConfiguration/", .when(platforms: [.macOS])),
+                .headerSearchPath("headers/Security/", .when(platforms: [.macOS])),
             ],
             linkerSettings: [
                 .linkedFramework("Security", .when(platforms: [.iOS, .macOS])),

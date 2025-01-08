@@ -1,5 +1,8 @@
 import Foundation
 import Security
+#if SPM_EAP8021X_ENABLED
+import EAP8021XClientObjc
+#endif
 
 /*
  https://github.com/snowhaze/SnowHaze-iOS/blob/e434f8aa0952d6f07e8e29a722728af73f235e9d/SnowHaze/KeyManager.swift#L76
@@ -254,7 +257,7 @@ public extension KeychainManager {
     {
         let label = ssid
         guard let label else {
-            throw EAPConfiguratorError.failedToSaveEapCredentials(errSecParam, "Label is required")
+            throw EAPConfiguratorError.failedToSaveEAPCredentials(errSecParam, "Label is required")
         }
         var query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -299,7 +302,7 @@ public extension KeychainManager {
         // https://www.osstatus.com/ 查询 osstatus 翻译
         let status = SecItemAdd(query as CFDictionary, nil)
         guard status == errSecSuccess else {
-            throw EAPConfiguratorError.failedToSaveEapCredentials(status, nil)
+            throw EAPConfiguratorError.failedToSaveEAPCredentials(status, nil)
         }
     }
 
@@ -335,7 +338,7 @@ public extension KeychainManager {
             return nil
         }
         guard status == errSecSuccess, let attributes = result as? [String: Any] else {
-            throw EAPConfiguratorError.failedToGetEapCredentials(status)
+            throw EAPConfiguratorError.failedToGetEAPCredentials(status)
         }
         return EAPCredential(attributes: attributes)
     }
@@ -371,7 +374,7 @@ public extension KeychainManager {
             return []
         }
         guard status == errSecSuccess, let attributesList = result as? [[String: Any]] else {
-            throw EAPConfiguratorError.failedToGetEapCredentials(status)
+            throw EAPConfiguratorError.failedToGetEAPCredentials(status)
         }
         return attributesList.map { EAPCredential(attributes: $0) }
     }
@@ -467,7 +470,7 @@ public extension KeychainManager {
         }
         let status = SecItemDelete(query as CFDictionary)
         guard status == errSecSuccess else {
-            throw EAPConfiguratorError.failedToDeleteEapCredentials(status)
+            throw EAPConfiguratorError.failedToDeleteEAPCredentials(status)
         }
         return true
     }
@@ -493,36 +496,26 @@ public extension KeychainManager {
     enum EAPConfiguratorError: LocalizedError {
         /// Unable parse pem file
         case failedToParsePemFile
-
         /// Unable to add certificate to keychain
         case failedSecItemAdd(OSStatus, String, label: String? = nil)
-
         /// Unable to copy from keychain
         case failedSecItemCopyMatching(OSStatus)
-
         /// Unable to decode certificate dat
         case failedToBase64DecodeCertificate
-
         /// Unable to create certificate from data
         case failedToCreateCertificateFromData
-
         /// Unable to get common name or subject sequence f from certificate
         case failedToCopyCommonNameOrSubjectSequence
-
         /// Unable to fetch identity
         case failedToFetchIdentity(OSStatus, String)
-
         /// Unable to trust certificate
         case failedToTrustCertificate(OSStatus)
-
         /// Unable to save eap credentials
-        case failedToSaveEapCredentials(OSStatus, String?)
-
+        case failedToSaveEAPCredentials(OSStatus, String?)
         /// Unable to get eap credentials
-        case failedToGetEapCredentials(OSStatus)
-
+        case failedToGetEAPCredentials(OSStatus)
         /// Unable to delete eap credentials
-        case failedToDeleteEapCredentials(OSStatus)
+        case failedToDeleteEAPCredentials(OSStatus)
 
         public var errorDescription: String? {
             switch self {
@@ -542,13 +535,13 @@ public extension KeychainManager {
                 return "Unable to fetch identity: \(oSStatus) - \(string)"
             case .failedToTrustCertificate(let oSStatus):
                 return "Unable to trust certificate: \(oSStatus)"
-            case .failedToSaveEapCredentials(let oSStatus, let string):
+            case .failedToSaveEAPCredentials(let oSStatus, let string):
                 var message = "\(oSStatus)"
                 if let string { message += " - \(string)" }
                 return "Unable to save eap credentials: \(message)"
-            case .failedToGetEapCredentials(let oSStatus):
+            case .failedToGetEAPCredentials(let oSStatus):
                 return "Unable to get eap credentials: \(oSStatus)"
-            case .failedToDeleteEapCredentials(let oSStatus):
+            case .failedToDeleteEAPCredentials(let oSStatus):
                 return "Unable to delete eap credentials: \(oSStatus)"
             }
         }
@@ -598,7 +591,7 @@ extension KeychainManager {
             // Trusted App Groups
             // https://github.com/appleopen/eap8021x/blob/0874da7abfb50ef67186cf048cd833e0f8f43b1b/EAP8021X.fproj/EAPKeychainUtil.c#L966
             for trustedAppGroup in trustedAppGoups {
-                if SecTrustedApplicationCreateApplicationGroup(trustedAppGroup.cString(using: .utf8), nil, &trustedAppRef) == errSecSuccess,
+                if EAPOLClientWrapper.secTrustedApplicationCreateApplicationGroup(trustedAppGroup.cString(using: .utf8), anchor: nil, app: &trustedAppRef) == errSecSuccess,
                    let trustedApp = trustedAppRef
                 {
                     trustedApps.append(trustedApp)

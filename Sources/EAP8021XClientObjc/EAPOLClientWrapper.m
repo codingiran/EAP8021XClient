@@ -1,92 +1,24 @@
 //
-//  Eap8021x.m
+//  EAPOLClientWrapper.m
 //  wifi_connect
 //
 //  Created by CodingIran on 2024/12/31.
 //
 
-#import "Eap8021x.h"
+#import "EAPOLClientWrapper.h"
 #import <Foundation/Foundation.h>
+#include <Security/SecTrustedApplication.h>
 #include "EAPOLClientConfiguration.h"
 #include "EAPOLClientConfigurationPrivate.h"
 #include "EAPClientProperties.h"
 #include "EAPUtil.h"
 #include "EAPCertificateUtil.h"
 #include "myCFUtil.h"
+#include "SecTrustedApplicationPriv.h"
 
-@implementation Eap8021xProfile
+@implementation EAPOLClientWrapper
 
-+ (nullable NSString *)eapTypeToString:(Eap8021xEAPType)eapType {
-    uint32_t type = (uint32_t)eapType;
-    const char *str = EAPTypeStr(type);
-    if (strcmp(str, "<unknown>") == 0) {
-        return nil;
-    }
-    return [NSString stringWithUTF8String:str];
-}
-
-+ (Eap8021xSecurityType)stringToSecurityType:(NSString *)securityType {
-    if ([securityType isEqualToString:(__bridge NSString *)kEAPOLClientProfileWLANSecurityTypeWEP]) {
-        return Eap8021xSecurityTypeWEP;
-    } else if ([securityType isEqualToString:(__bridge NSString *)kEAPOLClientProfileWLANSecurityTypeWPA]) {
-        return Eap8021xSecurityTypeWPA;
-    } else if ([securityType isEqualToString:(__bridge NSString *)kEAPOLClientProfileWLANSecurityTypeWPA2]) {
-        return Eap8021xSecurityTypeWPA2;
-    } else if ([securityType isEqualToString:(__bridge NSString *)kEAPOLClientProfileWLANSecurityTypeAny]) {
-        return Eap8021xSecurityTypeAny;
-    }
-    return Eap8021xSecurityTypeUnknown;
-}
-
-+ (nullable NSString *)securityTypeToString:(Eap8021xSecurityType)securityType {
-    switch (securityType) {
-        case Eap8021xSecurityTypeWEP:
-            return (__bridge NSString *)kEAPOLClientProfileWLANSecurityTypeWEP;
-        case Eap8021xSecurityTypeWPA:
-            return (__bridge NSString *)kEAPOLClientProfileWLANSecurityTypeWPA;
-        case Eap8021xSecurityTypeWPA2:
-            return (__bridge NSString *)kEAPOLClientProfileWLANSecurityTypeWPA2;
-        case Eap8021xSecurityTypeAny:
-            return (__bridge NSString *)kEAPOLClientProfileWLANSecurityTypeAny;
-        default:
-            return nil;
-    }
-}
-
-+ (Eap8021TTLSInnerAuthType)stringToTTLSInnerAuthType:(NSString *)authType {
-    if ([authType isEqualToString:@"PAP"]) {
-        return Eap8021TTLSInnerAuthTypePAP;
-    } else if ([authType isEqualToString:@"CHAP"]) {
-        return Eap8021TTLSInnerAuthTypeCHAP;
-    } else if ([authType isEqualToString:@"MSCHAP"]) {
-        return Eap8021TTLSInnerAuthTypeMSCHAP;
-    } else if ([authType isEqualToString:@"MSCHAPv2"]) {
-        return Eap8021TTLSInnerAuthTypeMSCHAPv2;
-    } else {
-        return Eap8021TTLSInnerAuthTypeUnknown;
-    }
-}
-
-+ (nullable NSString *)ttlsInnerAuthTypeToString:(Eap8021TTLSInnerAuthType)authType {
-    switch (authType) {
-        case Eap8021TTLSInnerAuthTypePAP:
-            return @"PAP";
-        case Eap8021TTLSInnerAuthTypeCHAP:
-            return @"CHAP";
-        case Eap8021TTLSInnerAuthTypeMSCHAP:
-            return @"MSCHAP";
-        case Eap8021TTLSInnerAuthTypeMSCHAPv2:
-            return @"MSCHAPv2";
-        default:
-            return nil;
-    }
-}
-
-@end
-
-@implementation Eap8021x
-
-+ (nullable Eap8021xProfile *)profileWithProfileId:(nullable NSString *)profileId {
++ (nullable EAP8021xProfile *)profileWithProfileId:(nullable NSString *)profileId {
     if (profileId == nil || profileId.length == 0) {
         return nil;
     }
@@ -105,14 +37,14 @@
         my_CFRelease(&cfg);
         return nil;
     }
-    Eap8021xProfile *profileModel = [self profileWithProfileRef:profileRef];
+    EAP8021xProfile *profileModel = [self profileWithProfileRef:profileRef];
     my_CFRelease(&profile_id);
     my_CFRelease(&cfg);
     my_CFRelease(&profileRef);
     return profileModel;
 }
 
-+ (nullable Eap8021xProfile *)profileWithSSID:(nullable NSString *)ssid {
++ (nullable EAP8021xProfile *)profileWithSSID:(nullable NSString *)ssid {
     if (ssid == nil || ssid.length == 0) {
         return nil;
     }
@@ -135,13 +67,13 @@
         my_CFRelease(&cfg);
         return nil;
     }
-    Eap8021xProfile *profileModel = [self profileWithProfileRef:profileRef];
+    EAP8021xProfile *profileModel = [self profileWithProfileRef:profileRef];
     my_CFRelease(&ssid_data);
     my_CFRelease(&cfg);
     return profileModel;
 }
 
-+ (nullable NSArray<Eap8021xProfile *> *)listProfiles {
++ (nullable NSArray<EAP8021xProfile *> *)listProfiles {
     EAPOLClientConfigurationRef cfg = EAPOLClientConfigurationCreate(NULL);
     if (cfg == NULL) {
         return nil;
@@ -157,7 +89,7 @@
         if (profile == NULL) {
             continue;
         }
-        Eap8021xProfile *profileModel = [self profileWithProfileRef:profile];
+        EAP8021xProfile *profileModel = [self profileWithProfileRef:profile];
         [profileModels addObject:profileModel];
         my_CFRelease(&profile);
     }
@@ -165,7 +97,7 @@
     return profileModels;
 }
 
-+ (nullable Eap8021xProfile *)profileWithProfileRef:(EAPOLClientProfileRef)profileRef {
++ (nullable EAP8021xProfile *)profileWithProfileRef:(EAPOLClientProfileRef)profileRef {
     if (profileRef == NULL) {
         return nil;
     }
@@ -182,7 +114,7 @@
     CFArrayRef trustedServerNames = CFDictionaryGetValue(auth_props, kEAPClientPropTLSTrustedServerNames);
     CFArrayRef trustedCertificates = CFDictionaryGetValue(auth_props, kEAPClientPropTLSTrustedCertificates);
     
-    Eap8021xProfile *profileModel = [[Eap8021xProfile alloc] init];
+    EAP8021xProfile *profileModel = [[EAP8021xProfile alloc] init];
 
     if (profileID != NULL) {
         profileModel.profileId = (__bridge NSString *)profileID;
@@ -200,10 +132,10 @@
         profileModel.outerIdentity = (__bridge NSString *)outerIdentity;
     }
     if (innerAuthentication != NULL) {
-        profileModel.ttlsInnerAuthType = [Eap8021xProfile stringToTTLSInnerAuthType:(__bridge NSString *)innerAuthentication];
+        profileModel.ttlsInnerAuthType = [EAP8021xProfile stringToTTLSInnerAuthType:(__bridge NSString *)innerAuthentication];
     }
     if (security_type != NULL) {
-        profileModel.securityType = [Eap8021xProfile stringToSecurityType:(__bridge NSString *)security_type];
+        profileModel.securityType = [EAP8021xProfile stringToSecurityType:(__bridge NSString *)security_type];
     }
     if (eap_types != NULL) {
         NSMutableArray<NSNumber *> *acceptEAPTypes = [NSMutableArray array];
@@ -257,9 +189,9 @@
 
 @end
 
-@implementation Eap8021x (EapAddProfile)
+@implementation EAPOLClientWrapper (EAPAddProfile)
 
-+ (BOOL)createProfileWithEap8021xProfile:(Eap8021xProfile *)eap8021xProfile {
++ (BOOL)createProfileWithEAP8021xProfile:(EAP8021xProfile *)eap8021xProfile {
     return [self createProfileWithSSID:eap8021xProfile.ssid
                         acceptEAPTypes:eap8021xProfile.acceptEAPTypes
                        userDefinedName:eap8021xProfile.userDefinedName
@@ -275,9 +207,9 @@
                acceptEAPTypes:(nullable NSArray<NSNumber *> *)acceptEAPTypes
               userDefinedName:(nullable NSString *)userDefinedName
                    domainName:(nullable NSString *)domainName
-                 securityType:(Eap8021xSecurityType)securityType
+                 securityType:(EAP8021xSecurityType)securityType
                 outerIdentity:(nullable NSString *)outerIdentity
-      ttlSInnerAuthentication:(Eap8021TTLSInnerAuthType)ttlSInnerAuthentication
+      ttlSInnerAuthentication:(EAP8021TTLSInnerAuthType)ttlSInnerAuthentication
             trustedServerName:(nullable NSArray<NSString *> *)trustedServerName
            trustedCertificate:(nullable NSArray<NSData *> *)trustedCertificate
 {
@@ -344,7 +276,7 @@
     }
     
     // ttlSInnerAuthentication
-    NSString *ttlSInnerAuthenticationStr = [Eap8021xProfile ttlsInnerAuthTypeToString:ttlSInnerAuthentication];
+    NSString *ttlSInnerAuthenticationStr = [EAP8021xProfile ttlsInnerAuthTypeToString:ttlSInnerAuthentication];
     if (ttlSInnerAuthenticationStr != nil && ttlSInnerAuthenticationStr.length > 0) {
         CFStringRef ttlS_inner_authentication = CFStringCreateWithCString(NULL, [ttlSInnerAuthenticationStr UTF8String], kCFStringEncodingUTF8);
         CFDictionarySetValue(auth_props, kEAPClientPropTTLSInnerAuthentication, ttlS_inner_authentication);
@@ -383,7 +315,7 @@
     EAPOLClientProfileSetAuthenticationProperties(profile, auth_props);
     
     // securityType
-    NSString *securityTypeStr = [Eap8021xProfile securityTypeToString:securityType];
+    NSString *securityTypeStr = [EAP8021xProfile securityTypeToString:securityType];
     CFStringRef security_type = NULL;
     if (securityTypeStr != nil && securityTypeStr.length > 0) {
         security_type = CFStringCreateWithCString(NULL, [securityTypeStr UTF8String], kCFStringEncodingUTF8);
@@ -423,7 +355,7 @@
 @end
 
 
-@implementation Eap8021x (EapRemoveProfile)
+@implementation EAPOLClientWrapper (EAPRemoveProfile)
 
 + (BOOL)removeProfileWithSSID:(NSString *)ssid {
     if (ssid == nil || ssid.length == 0) {
@@ -449,7 +381,7 @@
     return [self removeProfileRef:profileRef cfg:cfg];
 }
 
-+ (BOOL)removeProfile:(Eap8021xProfile *)eap8021xProfile {
++ (BOOL)removeProfile:(EAP8021xProfile *)eap8021xProfile {
     NSString *profileID = eap8021xProfile.profileId;
     return [self removeProfileWithId:profileID];
 }
@@ -465,6 +397,16 @@
         return false;
     }
     return true;
+}
+
+@end
+
+@implementation EAPOLClientWrapper (EAPSecTrustedApplicationGroup)
+
++ (OSStatus)SecTrustedApplicationCreateApplicationGroup:(nullable const char *)groupName
+                                                 anchor:(nullable SecCertificateRef)anchor
+                                                    app:(SecTrustedApplicationRef * __nonnull CF_RETURNS_RETAINED)app {
+    return SecTrustedApplicationCreateApplicationGroup(groupName, anchor, app);
 }
 
 @end

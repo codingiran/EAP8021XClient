@@ -33,8 +33,8 @@ final class EAP8021XClientTests: XCTestCase {
     }
 
     func testDeleteCredential() throws {
-        let result = try EAP8021XClient.deleteEAPCredential(ssid: "ZenNet-Radius-Iran")
-        debugPrint(result)
+        try EAP8021XClient.deleteEAPCredential(ssid: "ZenNet-Radius-Iran")
+        debugPrint("---")
     }
 
     #if os(macOS)
