@@ -1,14 +1,14 @@
 import Foundation
 
 // Enforce minimum Swift version for all platforms and build systems.
-#if swift(<5.5)
-#error("EAP8021XClient doesn't support Swift versions below 5.5.")
+#if swift(<5.9)
+#error("EAP8021XClient doesn't support Swift versions below 5.9.")
 #endif
 
-/// Current EAP8021XClient version 0.3.5. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
-let version = "0.3.5"
+/// Current EAP8021XClient version 0.3.6. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
+let version = "0.3.6"
 
-public enum EAP8021XClient {}
+public enum EAP8021XClient: Sendable {}
 
 // MARK: - Certificate
 
@@ -244,14 +244,14 @@ public extension EAP8021XClient {
                               trustedCertificate: [Data]? = nil) -> Bool
     {
         EAPOLClientWrapper.createProfile(withSSID: ssid,
-                               acceptEAPTypes: acceptEAPTypes?.map { NSNumber(value: $0.rawValue) },
-                               userDefinedName: userDefinedName,
-                               domainName: domainName,
-                               securityType: securityType,
-                               outerIdentity: outerIdentity,
-                               ttlSInnerAuthentication: ttlSInnerAuthentication,
-                               trustedServerName: trustedServerName,
-                               trustedCertificate: trustedCertificate)
+                                         acceptEAPTypes: acceptEAPTypes?.map { NSNumber(value: $0.rawValue) },
+                                         userDefinedName: userDefinedName,
+                                         domainName: domainName,
+                                         securityType: securityType,
+                                         outerIdentity: outerIdentity,
+                                         ttlSInnerAuthentication: ttlSInnerAuthentication,
+                                         trustedServerName: trustedServerName,
+                                         trustedCertificate: trustedCertificate)
     }
 
     /// 删除指定 SSID 的 EAP 配置文件

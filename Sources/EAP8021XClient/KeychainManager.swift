@@ -12,7 +12,7 @@ import EAP8021XClientObjc
 
 // MARK: - Add Certificate
 
-public enum KeychainManager {
+public enum KeychainManager: Sendable {
     /// 将证书添加到 KeyChain
     /// - Parameters:
     ///   - cerContent: 证书内容
@@ -493,7 +493,7 @@ public extension KeychainManager {
 // MARK: - Error Handing
 
 public extension KeychainManager {
-    enum EAPConfiguratorError: LocalizedError {
+    enum EAPConfiguratorError: LocalizedError, Sendable {
         /// Unable parse pem file
         case failedToParsePemFile
         /// Unable to add certificate to keychain

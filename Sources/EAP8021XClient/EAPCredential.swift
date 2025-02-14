@@ -8,8 +8,8 @@
 import Foundation
 
 @objc(EAPCredential)
-open class EAPCredential: NSObject, Codable, NSSecureCoding {
-    public enum AcceessControl: Codable {
+open class EAPCredential: NSObject, Codable, NSSecureCoding, @unchecked Sendable {
+    public enum AcceessControl: Codable, Sendable {
         /// 所有应用
         case all
         /// 特定应用

@@ -24,7 +24,7 @@ final class EAP8021XClientTests: XCTestCase {
 
     func testFetchCredential() throws {
         let credential = try EAP8021XClient.getEAPCredential(ssid: nil, comment: "For ZenLayer")
-        debugPrint("-------\(credential?.description)")
+        debugPrint("-------\(String(describing: credential?.description))")
     }
 
     func testFetchCredentials() throws {
