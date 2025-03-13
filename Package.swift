@@ -15,6 +15,10 @@ let package = Package(
             name: "EAP8021XClient",
             targets: ["EAP8021XClient"]
         ),
+        .library(
+            name: "EAP8021XClientObjc",
+            targets: ["EAP8021XClientObjc"]
+        ),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
