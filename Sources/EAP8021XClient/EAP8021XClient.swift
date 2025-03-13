@@ -5,8 +5,8 @@ import Foundation
 #error("EAP8021XClient doesn't support Swift versions below 5.9.")
 #endif
 
-/// Current EAP8021XClient version 0.3.6. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
-let version = "0.3.6"
+/// Current EAP8021XClient version 0.3.7. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
+let version = "0.3.7"
 
 public enum EAP8021XClient: Sendable {}
 
@@ -198,7 +198,7 @@ public extension EAP8021XClient {
 
 #if SPM_EAP8021X_ENABLED
 
-import EAP8021XClientObjc
+@_exported import EAP8021XClientObjc
 
 #endif
 

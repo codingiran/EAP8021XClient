@@ -1,7 +1,7 @@
 import Foundation
 import Security
 #if SPM_EAP8021X_ENABLED
-import EAP8021XClientObjc
+@_exported import EAP8021XClientObjc
 #endif
 
 /*
@@ -151,7 +151,7 @@ public enum KeychainManager: Sendable {
 
 #if SPM_EAP8021X_ENABLED
 
-import EAP8021XClientObjc
+@_exported import EAP8021XClientObjc
 
 #endif
 
