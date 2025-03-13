@@ -198,7 +198,7 @@ public extension EAP8021XClient {
 
 #if SPM_EAP8021X_ENABLED
 
-@_exported import EAP8021XClientObjc
+import EAP8021XClientObjc
 
 #endif
 
