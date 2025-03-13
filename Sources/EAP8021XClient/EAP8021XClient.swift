@@ -5,8 +5,8 @@ import Foundation
 #error("EAP8021XClient doesn't support Swift versions below 5.9.")
 #endif
 
-/// Current EAP8021XClient version 0.3.8. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
-let version = "0.3.8"
+/// Current EAP8021XClient version 0.4.0. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
+let version = "0.4.0"
 
 public enum EAP8021XClient: Sendable {}
 
@@ -198,28 +198,29 @@ public extension EAP8021XClient {
 
 #if SPM_EAP8021X_ENABLED
 
-@_exported import EAP8021XClientObjc
+@_implementationOnly import EAP8021XClientObjc
 
 #endif
 
 public extension EAP8021XClient {
     /// 获取所有 EAP 配置文件
     static func listAllProfiles() -> [EAP8021xProfile]? {
-        EAPOLClientWrapper.listProfiles()
+        EAPOLClientWrapper.listProfiles()?.map { .init(objc: $0) }
     }
 
     /// 获取指定 SSID 的 EAP 配置文件
     /// - Parameters:
     ///   - ssid: SSID
     static func profileWithSSID(_ ssid: String) -> EAP8021xProfile? {
-        EAPOLClientWrapper.profile(withSSID: ssid)
+        guard let profileObjc = EAPOLClientWrapper.profile(withSSID: ssid) else { return nil }
+        return .init(objc: profileObjc)
     }
 
     /// 创建 EAP 配置文件
     /// - Parameters:
     ///   - eap8021xProfile: EAP 配置文件
     static func createProfile(_ eap8021xProfile: EAP8021xProfile) -> Bool {
-        EAPOLClientWrapper.createProfile(with: eap8021xProfile)
+        EAPOLClientWrapper.createProfile(with: eap8021xProfile.toObjc())
     }
 
     /// 创建 EAP 配置文件
@@ -234,12 +235,12 @@ public extension EAP8021XClient {
     ///   - trustedServerName: 可信服务器名称
     ///   - trustedCertificate: 可信证书
     static func createProfile(ssid: String? = nil,
-                              acceptEAPTypes: [EAP8021xEAPType]? = [.PEAP],
+                              acceptEAPTypes: [EAP8021xEAPType]? = [.peap],
                               userDefinedName: String? = nil,
                               domainName: String? = nil,
                               securityType: EAP8021xSecurityType = .any,
                               outerIdentity: String? = nil,
-                              ttlSInnerAuthentication: EAP8021TTLSInnerAuthType = .mschaPv2,
+                              ttlSInnerAuthentication: EAP8021TTLSInnerAuthType = .mschapv2,
                               trustedServerName: [String]? = nil,
                               trustedCertificate: [Data]? = nil) -> Bool
     {
@@ -247,9 +248,9 @@ public extension EAP8021XClient {
                                          acceptEAPTypes: acceptEAPTypes?.map { NSNumber(value: $0.rawValue) },
                                          userDefinedName: userDefinedName,
                                          domainName: domainName,
-                                         securityType: securityType,
+                                         securityType: securityType.toObjc(),
                                          outerIdentity: outerIdentity,
-                                         ttlSInnerAuthentication: ttlSInnerAuthentication,
+                                         ttlSInnerAuthentication: ttlSInnerAuthentication.toObjc(),
                                          trustedServerName: trustedServerName,
                                          trustedCertificate: trustedCertificate)
     }
@@ -275,7 +276,7 @@ public extension EAP8021XClient {
     ///   - eap8021xProfile: EAP 配置文件
     @discardableResult
     static func removeProfile(_ eap8021xProfile: EAP8021xProfile) -> Bool {
-        EAPOLClientWrapper.remove(eap8021xProfile)
+        EAPOLClientWrapper.remove(eap8021xProfile.toObjc())
     }
 }
 

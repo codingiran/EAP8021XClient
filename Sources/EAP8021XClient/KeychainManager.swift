@@ -1,8 +1,5 @@
 import Foundation
 import Security
-#if SPM_EAP8021X_ENABLED
-@_exported import EAP8021XClientObjc
-#endif
 
 /*
  https://github.com/snowhaze/SnowHaze-iOS/blob/e434f8aa0952d6f07e8e29a722728af73f235e9d/SnowHaze/KeyManager.swift#L76
@@ -151,7 +148,7 @@ public enum KeychainManager: Sendable {
 
 #if SPM_EAP8021X_ENABLED
 
-@_exported import EAP8021XClientObjc
+@_implementationOnly import EAP8021XClientObjc
 
 #endif
 
