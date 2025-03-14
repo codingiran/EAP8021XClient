@@ -148,7 +148,7 @@ public enum KeychainManager: Sendable {
 
 #if SPM_EAP8021X_ENABLED
 
-import EAP8021XClientObjc
+@_implementationOnly import EAP8021XClientObjc
 
 #endif
 

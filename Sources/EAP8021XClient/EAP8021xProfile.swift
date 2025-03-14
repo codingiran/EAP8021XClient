@@ -11,7 +11,7 @@ import Foundation
 
 #if SPM_EAP8021X_ENABLED
 
-import EAP8021XClientObjc
+@_implementationOnly import EAP8021XClientObjc
 
 /// EAP Type
 public enum EAP8021xEAPType: Int, Codable, Sendable, CustomStringConvertible {
